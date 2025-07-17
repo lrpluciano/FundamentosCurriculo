@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Estudos FCEI - Fundamentos e Currículo da Educação Infantil</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.1em;
+        }
+
+        /* Navegação */
+        nav {
+            background-color: #34495e;
+            color: #fff;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky; /* Torna a navegação "grudenta" no topo */
+            top: 0;
+            z-index: 1000; /* Garante que a navegação fique acima de outros elementos */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 15px;
+            display: block;
+            transition: background-color 0.3s ease;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: #4CAF50;
+        }
+
+        /* Conteúdo Principal */
+        main {
+            padding: 20px 0;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        section h3 {
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        section ul {
+            list-style: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+
+        section ol {
+            list-style: decimal;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+
+        section li {
+            margin-bottom: 8px;
+        }
+
+        section p {
+            margin-bottom: 10px;
+        }
+
+        /* Estilos para lista de recursos */
+        .resource-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resource-list li {
+            background-color: #ecf0f1;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+        }
+
+        .resource-list li a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .resource-list li a:hover {
+            color: #4CAF50;
+        }
+
+        .resource-list .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+            color: #4CAF50;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+                width: 90%;
+                text-align: center;
+            }
+
+            nav ul li a {
+                padding: 10px;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            section h2 {
+                font-size: 1.8em;
+            }
+
+            section h3 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Portal de Estudos FCEI</h1>
+            <p>Fundamentos e Currículo da Educação Infantil</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#modulo1" class="nav-link active">Módulo 1: Entendendo o Currículo</a></li>
+                <li><a href="#modulo2" class="nav-link">Módulo 2: Políticas e Documentos</a></li>
+                <li><a href="#modulo3" class="nav-link">Módulo 3: Teorias e Fundamentos</a></li>
+                <li><a href="#modulo4" class="nav-link">Módulo 4: Percepção e Formação Docente</a></li>
+                <li><a href="#modulo5" class="nav-link">Módulo 5: Influências e Contextos</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section id="home">
+                <h2>Bem-vindos ao Portal de Estudos FCEI!</h2>
+                <p>Este portal foi cuidadosamente elaborado para auxiliar você na sua jornada de aprendizado sobre os Fundamentos e o Currículo da Educação Infantil. Aqui, você encontrará um conteúdo organizado, claro e objetivo, essencial para sua preparação para a prova.</p>
+                <p>Navegue pelos módulos para aprofundar seus conhecimentos e utilize os recursos complementares para uma compreensão ainda mais completa.</p>
+
+                <h3>Recursos Essenciais para seu Estudo:</h3>
+                <ul class="resource-list">
+                    <li>
+                        <a href="https://drive.google.com/file/d/1djzOfpbmTlh_xrZM7my954kp5HV0ODK8/view?usp=sharing" target="_blank">
+                            <span class="icon">&#128196;</span>
+                            Apostila de Estudo Aprofundado
+                        </a>
+                        <p>Material complementar essencial para aprofundar os temas abordados.</p>
+                    </li>
+                    <li>
+                        <a href="https://drive.google.com/file/d/14ZqNz-P9799dLiXmUnjPNS1JbgUcXjmi/view?usp=sharing" target="_blank">
+                            <span class="icon">&#128218;</span>
+                            Currículo: Conceitos, Práticas e Poder
+                        </a>
+                        <p>Uma leitura fundamental para compreender as dimensões do currículo.</p>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="modulo1">
+                <h2>Módulo 1: Entendendo o Currículo</h2>
+                <h3>Visão Geral</h3>
+                <p>O currículo é um conceito complexo e multifacetado, cuja definição varia conforme o contexto e a perspectiva teórica. Compreendê-lo é fundamental para qualquer profissional da educação.</p>
+
+                <h3>Relação Fundamental</h3>
+                <p>Explore a dinâmica intrínseca entre professor, aluno e currículo. A sala de aula é um espaço onde esses três elementos se interligam e se influenciam mutuamente, moldando o processo de ensino-aprendizagem.</p>
+
+                <h3>Tipos de Currículo</h3>
+                <ul>
+                    <li><strong>Currículo Formal:</strong> O que está explicitado nos documentos oficiais, leis e planejamentos.</li>
+                    <li><strong>Currículo-em-Ação:</strong> O currículo que de fato acontece na prática pedagógica diária, muitas vezes adaptado e reinterpretado pelos professores.</li>
+                    <li><strong>Currículo Oculto:</strong> Aprendizagens não intencionais, valores, normas e atitudes transmitidos pela cultura escolar e pelas interações cotidianas.</li>
+                </ul>
+
+                <h3>Concepções de Currículo</h3>
+                <p>Analise o currículo como um reflexo de um determinado tempo e espaço. Ele pode ser um instrumento de transformação social, promovendo a mudança e a reflexão crítica, ou atuar na manutenção de estruturas existentes.</p>
+
+                <h3>Componentes Curriculares</h3>
+                <p>Os objetivos curriculares explicitam as intenções educativas e estabelecem capacidades a serem desenvolvidas, não apenas comportamentos. Eles guiam a seleção de conteúdos e a escolha dos meios didáticos mais apropriados.</p>
+                
+                <h4>Roteiro de Estudo Sugerido:</h4>
+                <ol>
+                    <li>Leia o conteúdo deste módulo.</li>
+                    <li>Aprofunde-se na "Apostila de Estudo Aprofundado" (link acima), focando nas seções iniciais que abordam a definição e os tipos de currículo.</li>
+                    <li>Complemente a leitura com o livro "Currículo: Conceitos, Práticas e Poder" (link acima), especialmente os capítulos introdutórios sobre as concepções curriculares.</li>
+                    <li>Reflita sobre como os diferentes tipos de currículo se manifestam na prática escolar que você conhece.</li>
+                </ol>
+            </section>
+
+            <section id="modulo2">
+                <h2>Módulo 2: Políticas e Documentos Oficiais da Educação Infantil no Brasil</h2>
+                <h3>Referencial Curricular Nacional para a Educação Infantil (RCNEI) - Volume 1: Introdução</h3>
+                <ul>
+                    <li><strong>Educar e Cuidar:</strong> A integração indissociável dessas funções nas instituições de educação infantil, reconhecendo a criança em sua totalidade.</li>
+                    <li><strong>Proximidade com as Práticas Sociais Reais:</strong> A importância de que as situações de aprendizagem na Educação Infantil reproduzam e contextualizem as experiências sociais e culturais das crianças.</li>
+                    <li><strong>Transição para o Ensino Fundamental:</strong> Abordar a passagem da Educação Infantil para o Ensino Fundamental como um momento crucial, que exige atenção às ansiedades e inseguranças de crianças e famílias.</li>
+                </ul>
+                <p>O RCNEI serve como um guia para a organização curricular, destacando a importância de experiências significativas para o desenvolvimento infantil.</p>
+
+                <h3>Diretrizes Curriculares Nacionais (DCN)</h3>
+                <p>É fundamental compreender as Diretrizes Curriculares Nacionais e sua evolução. Compare a abertura da DCN de 1999, que permitia múltiplas possibilidades curriculares, com as propostas do RCNEI de 1998, que organizavam o currículo por áreas, eixos e faixas etárias.</p>
+
+                <h3>Políticas Curriculares Nacionais</h3>
+                <p>Analise como os principais documentos de políticas curriculares nacionais abordam as especificidades do currículo para a educação infantil e as experiências que devem ser propiciadas às crianças. Estes documentos visam nortear as práticas pedagógicas e garantir a qualidade da educação.</p>
+
+                <h3>Documentos Adicionais e Essenciais:</h3>
+                <p>É crucial conhecer os seguintes documentos que regulamentam a Educação Infantil no Brasil. Clique nos links para acessá-los:</p>
+                <ul>
+                    <li><a href="http://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank">Constituição Federal - 1988</a></li>
+                    <li><a href="http://www.planalto.gov.br/ccivil_03/leis/l9394.htm" target="_blank">LDB (Lei de Diretrizes e Bases da Educação Nacional) - Lei nº 9.394/1996</a></li>
+                    <li><a href="http://basenacionalcomum.mec.gov.br/abase/" target="_blank">BNCC (Base Nacional Comum Curricular)</a></li>
+                    <li><a href="http://portal.mec.gov.br/seb/arquivos/pdf/rcnei" target="_blank">RCNEI (Referencial Curricular Nacional para a Educação Infantil)</a></li>
+                    <li><a href="http://portal.mec.gov.br/dmdocuments/diretrizescurriculares2012.pdf" target="_blank">DCNEI (Diretrizes Curriculares Nacionais para a Educação Infantil)</a></li>
+                    <li><a href="https://www.gov.br/mdh/pt-br/navegue-por-temas/crianca-e-adolescente/publicacoes/eca-2023.pdf" target="_blank">ECA (Estatuto da Criança e do Adolescente)</a></li>
+                </ul>
+
+                <h4>Roteiro de Estudo Sugerido:</h4>
+                <ol>
+                    <li>Leia o conteúdo deste módulo, prestando atenção à integração dos conceitos de educar e cuidar.</li>
+                    <li>Acesse e explore o "Referencial Curricular Nacional para a Educação Infantil (RCNEI) - Volume 1: Introdução" através da Apostila de Estudo Aprofundado (link na seção "Recursos Essenciais").</li>
+                    <li>Navegue pelos links dos "Documentos Adicionais e Essenciais", familiarizando-se com as leis e diretrizes que regem a Educação Infantil no Brasil.</li>
+                    <li>Identifique as principais diferenças e semelhanças entre o RCNEI e as DCN no que tange à organização curricular.</li>
+                </ol>
+            </section>
+
+            <section id="modulo3">
+                <h2>Módulo 3: Teorias e Fundamentos Pedagógicos da Educação Infantil</h2>
+                <h3>Teoria Histórico-Cultural</h3>
+                <p>Estude os fundamentos da Teoria Histórico-Cultural e sua relevância para a compreensão do desenvolvimento infantil e a organização do currículo na Educação Infantil. Essa teoria enfatiza o papel da interação social e da cultura na construção do conhecimento.</p>
+
+                <h3>Teorias do Desenvolvimento Cognitivo</h3>
+                <p>Aprofunde-se nas contribuições de pensadores essenciais para a compreensão do desenvolvimento cognitivo das crianças:</p>
+                <ul>
+                    <li><strong>Lev Vygotsky:</strong> Foco na Zona de Desenvolvimento Proximal (ZDP) e na mediação social como chave para o aprendizado.</li>
+                    <li><strong>Sergei Rubinstein:</strong> Ênfase na unidade da consciência e atividade, e na formação da personalidade.</li>
+                    <li><strong>Jean Piaget:</strong> As etapas do desenvolvimento cognitivo e a importância da interação da criança com o ambiente para a construção do conhecimento.</li>
+                </ul>
+                <p>Compreenda como essas teorias impactam a forma como pensamos o processo de aquisição e progressão do conhecimento na infância.</p>
+
+                <h3>Pedagogias da Infância e Pensamento Freiriano</h3>
+                <p>Explore as diversas concepções educativas das Pedagogias da Infância na Educação Infantil. Discuta a articulação dessas pedagogias com o pensamento de Paulo Freire, buscando a sustentação de um projeto educativo democrático para a primeira infância, que valorize a autonomia, o diálogo e a criticidade.</p>
+
+                <h4>Roteiro de Estudo Sugerido:</h4>
+                <ol>
+                    <li>Leia cuidadosamente o conteúdo deste módulo, buscando identificar os pontos-chave de cada teoria.</li>
+                    <li>Revise as seções da "Apostila de Estudo Aprofundado" (link na seção "Recursos Essenciais") que abordam as bases teóricas do desenvolvimento infantil e as pedagogias.</li>
+                    <li>Acesse o link "Currículo: Conceitos, Práticas e Poder" (link na seção "Recursos Essenciais") e procure por discussões que relacionem as teorias pedagógicas ao desenvolvimento curricular.</li>
+                    <li>Pense em exemplos práticos de como as ideias de Vygotsky, Rubinstein e Piaget podem ser aplicadas em uma sala de aula de Educação Infantil.</li>
+                </ol>
+            </section>
+
+            <section id="modulo4">
+                <h2>Módulo 4: A Percepção e Formação Docente</h2>
+                <h3>Concepção de Currículo pelos Professores</h3>
+                <p>Este tópico é crucial para entender a prática pedagógica real. Compreenda como os professores de Educação Infantil percebem o currículo em seu dia a dia. Muitas vezes, o currículo não é visto por eles como um "artefato social" em constante construção e transformação, mas sim como algo fixo ou meramente burocrático. A necessidade de ampliar essa discussão nas escolas é fundamental para uma prática mais consciente e engajada.</p>
+
+                <h3>Formação Docente para a Educação Infantil</h3>
+                <p>Analise como os currículos dos cursos de Pedagogia preparam os futuros professores para atuar na Educação Infantil. Discuta as lacunas, os desafios e as boas práticas na formação inicial e continuada, que visam capacitar os educadores para as especificidades e complexidades dessa etapa da educação básica.</p>
+
+                <h4>Roteiro de Estudo Sugerido:</h4>
+                <ol>
+                    <li>Leia atentamente o conteúdo deste módulo, refletindo sobre a importância da percepção docente para a efetivação do currículo.</li>
+                    <li>Pense em como a formação de professores pode influenciar essa percepção.</li>
+                    <li>Consulte a "Apostila de Estudo Aprofundado" (link na seção "Recursos Essenciais") e o livro "Currículo: Conceitos, Práticas e Poder" (link na seção "Recursos Essenciais") em busca de discussões sobre a relação entre currículo e a atuação/formação docente.</li>
+                    <li>Reflita sobre sua própria experiência ou conhecimento: como a formação continuada poderia auxiliar os professores a ter uma compreensão mais ampla do currículo?</li>
+                </ol>
+            </section>
+
+            <section id="modulo5">
+                <h2>Módulo 5: Influências e Contextos</h2>
+                <h3>Influência Internacional</h3>
+                <p>A Educação Infantil brasileira não se desenvolveu isoladamente. É importante reconhecer a relevância dos estudos e experiências de outros países, como Inglaterra e EUA, que exerceram e ainda exercem influência sobre a realidade educacional brasileira.</p>
+
+                <h3>Conceito de "Campos de Experiência"</h3>
+                <p>Explore o conceito de "Campos de Experiência" como uma proposta inovadora para a organização curricular na Educação Infantil. Compreenda como essa abordagem visa superar a fragmentação do conhecimento, privilegiando a integralidade da criança e suas vivências.</p>
+
+                <h3>Função Pública da Escola (Contexto Italiano)</h3>
+                <p>Embora o documento faça referência ao contexto italiano, os princípios discutidos são de relevância universal para a educação. Estude a função pública da escola, o desenvolvimento integral da pessoa, a promoção do conhecimento, o respeito às diferenças individuais, a instrução obrigatória e a colaboração essencial entre escola e família. Reflita sobre como esses princípios se aplicam ou podem se aplicar à realidade brasileira.</p>
+
+                <h4>Roteiro de Estudo Sugerido:</h4>
+                <ol>
+                    <li>Leia o conteúdo deste módulo, buscando as conexões entre as influências externas e o desenvolvimento do currículo brasileiro.</li>
+                    <li>Analise a "Apostila de Estudo Aprofundado" (link na seção "Recursos Essenciais") para verificar se há menção sobre a influência de outros modelos educacionais.</li>
+                    <li>Reflita sobre como o conceito de "Campos de Experiência" pode impactar o planejamento e a prática pedagógica na Educação Infantil.</li>
+                    <li>Pense nas semelhanças e diferenças entre os princípios da escola italiana apresentados e a legislação educacional brasileira.</li>
+                </ol>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Portal de Estudos FCEI. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            // Função para ativar o link da navegação conforme a seção visível
+            const activateNavLink = () => {
+                let currentActive = null;
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100; // Ajuste para o cabeçalho fixo
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                        currentActive = section.id;
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === currentActive) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            // Adiciona evento de scroll para ativar o link correto
+            window.addEventListener('scroll', activateNavLink);
+            // Chama a função uma vez ao carregar para definir o estado inicial
+            activateNavLink();
+
+            // Adiciona scroll suave aos links da navegação
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80, // Ajuste para o cabeçalho fixo
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
