@@ -191,7 +191,24 @@
             padding: 20px 0;
             margin-top: 20px;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+            position: relative; /* Necessário para alinhar o contador se ele fosse flutuante */
+            min-height: 80px; /* Adiciona uma altura mínima para o rodapé acomodar o contador */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
+
+        footer p {
+            margin-bottom: 10px; /* Espaçamento entre o texto e o contador */
+        }
+
+        /* Estilo do contador para centralizar */
+        .counter-container {
+            text-align: center;
+            margin-top: 10px; /* Espaço acima do contador */
+        }
+
 
         /* Responsividade */
         @media (max-width: 768px) {
@@ -417,6 +434,9 @@
     <footer>
         <div class="container">
             <p>&copy; 2025 Portal de Estudos FCEI. Todos os direitos reservados.</p>
+            <div class="counter-container">
+                <div align=center><a href='https://contador.s12.com.br'><img src='https://contador.s12.com.br/img-cdC8y0D4d24CCZ2D-26.gif' border='0' alt='contador free'></a><script type='text/javascript' src='https://contador.s12.com.br/ad.js?id=cdC8y0D4d24CCZ2D'></script></div>
+            </div>
         </div>
     </footer>
 
@@ -429,9 +449,19 @@
             const activateNavLink = () => {
                 let currentActive = null;
                 sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 100; // Ajuste para o cabeçalho fixo
-                    const sectionBottom = sectionTop + section.offsetHeight;
-                    if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                    // Pega a posição da seção em relação ao topo da viewport
+                    const rect = section.getBoundingClientRect();
+                    // Define uma margem de "ativação" para a seção
+                    // Se o topo da seção estiver dentro dessa margem e o scroll passar, ativa
+                    const topThreshold = 150; // Ajuste para o cabeçalho fixo e um pouco mais
+                    const bottomThreshold = window.innerHeight - 150; // Ajuste para a parte de baixo da tela
+
+                    if (rect.top <= topThreshold && rect.bottom > bottomThreshold) {
+                         currentActive = section.id;
+                    }
+                    // Se nenhuma seção está cobrindo a maior parte da tela, mas uma está no topo
+                    // Isso é útil para seções curtas ou ao final da página
+                    if (!currentActive && rect.top <= topThreshold && rect.bottom > 0) {
                         currentActive = section.id;
                     }
                 });
