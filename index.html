@@ -1,922 +1,941 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tecnologia Educacional</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Tecnologia Educacional - Temas da Atividade Avaliativa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #f0f2f5;
-            --card-bg-color: #ffffff;
-            --primary-color: #003366;
-            --secondary-color: #6c757d;
-            --accent-color: #ffc107;
-            --text-color: #343a40;
-            --heading-color: #495057;
-            --border-color: #e9ecef;
-            --shadow-color: rgba(0, 0, 0, 0.08);
+            --primary: #6C63FF;
+            --secondary: #FF6584;
+            --accent: #4ECDC4;
+            --dark: #2D3561;
+            --light: #F7F9FB;
+            --text: #333;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: var(--text);
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            min-height: 100vh;
+            position: relative;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 1rem;
-            border-radius: 12px;
-            border: 2px solid var(--border-color);
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0,0 L100,100 M0,100 L100,0" stroke="rgba(108, 99, 255, 0.05)" stroke-width="1"/></svg>');
+            z-index: -1;
         }
 
         header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
-            background-color: var(--card-bg-color);
-            gap: 2rem;
-        }
-
-        header img {
-            max-width: 200px;
-            height: auto;
-        }
-
-        .header-text {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            flex-grow: 1;
-        }
-
-        header h1 {
-            color: var(--heading-color);
-            margin: 0;
-            font-size: 3.2rem;
-            font-weight: 700;
-        }
-
-        header h2 {
-            color: var(--secondary-color);
-            margin-top: 0.5rem;
-            font-size: 1.6rem;
-            font-weight: 400;
-        }
-
-        .topic {
-            margin-bottom: 1.5rem;
-            background-color: var(--card-bg-color);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px var(--shadow-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .topic:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 25px var(--shadow-color);
-        }
-
-        .topic-header {
+            background: var(--card-bg);
+            padding: 15px 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1.2rem 1.5rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .topic-header:hover {
-            background-color: #002244;
+            border-bottom: 3px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            height: 90px; /* Aumentado para acomodar melhor a logo */
         }
 
-        .topic-header h3 {
-            margin: 0;
-            font-size: 1.8rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-        }
-        
-        .topic-header h3 i {
-            margin-right: 0.8rem;
-            font-size: 1.8rem;
-        }
-        
-        .topic-header .arrow {
-            font-size: 1.5rem;
-            transform: rotate(0deg);
-            transition: transform 0.3s ease;
-        }
-        
-        .topic-header.active .arrow {
-            transform: rotate(90deg);
-        }
-        
-        .topic-content {
-            display: none;
-            padding: 1.5rem 2rem;
-        }
-        
-        .topic-content.active {
-            display: block;
-        }
-
-        .section-title {
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 1.4rem;
-            margin-top: 1.5rem;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .section-title i {
-            margin-right: 0.6rem;
-            font-size: 1.5rem;
-            color: var(--accent-color);
-        }
-
-        .content-block {
-            padding-left: 1.5rem;
-            border-left: 4px solid var(--accent-color);
-            margin-bottom: 1rem;
-        }
-
-        ul, ol {
-            padding-left: 1.5rem;
-        }
-
-        ul li, ol li {
-            margin-bottom: 0.8rem;
-        }
-
-        .questions-block {
-            background-color: var(--bg-color);
-            padding: 1.5rem;
+        .logo {
+            width: 140px;
+            height: auto;
             border-radius: 8px;
-            border: 1px dashed var(--secondary-color);
-            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+            max-height: 70px; /* Limitar altura da logo */
+            object-fit: contain; /* Garantir que a logo mantenha proporção */
         }
 
-        .questions-block h4 {
-            color: var(--heading-color);
-            margin-top: 0;
-            font-size: 1.2rem;
-            font-weight: 600;
+        .logo:hover {
+            transform: scale(1.05);
         }
 
-        .questions-block ul {
-            list-style-type: none;
-            padding: 0;
+        .title {
+            text-align: right;
         }
 
-        .questions-block li {
-            margin-bottom: 1rem;
+        .title h1 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.8em;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            line-height: 1.2;
+        }
+
+        .title h1::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .title p {
+            margin: 4px 0 0;
+            color: var(--dark);
             font-style: italic;
-        }
-
-        .questions-block li strong {
-            font-style: normal;
+            font-size: 0.9em;
             font-weight: 500;
+        }
+
+        .container {
+            display: flex;
+            min-height: 80vh;
+            padding: 20px 30px;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            width: 30%;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow-y: auto;
+            max-height: calc(100vh - 150px); /* Ajustado para cabeçalho maior */
+            position: sticky;
+            top: 110px; /* Ajustado para cabeçalho maior */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .timeline h2 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            font-weight: 600;
+            text-align: center;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .timeline h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(108, 99, 255, 0.15);
+        }
+
+        .card:hover::before {
+            width: 100%;
+            opacity: 0.1;
+        }
+
+        .card h3 {
+            margin: 0 0 8px 0;
+            color: var(--dark);
+            font-size: 1em;
+            font-weight: 600;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            width: 70%;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow-y: auto;
+            max-height: calc(100vh - 150px); /* Ajustado para cabeçalho maior */
+            display: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .content.active {
             display: block;
-            margin-top: 0.5rem;
+            animation: fadeIn 0.5s ease;
         }
 
-        .references {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid var(--border-color);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .references ul {
-            list-style-type: '» ';
-            padding-left: 1.2rem;
+        .content h2 {
+            color: var(--dark);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: 600;
+            position: relative;
         }
 
-        .references a {
-            color: var(--primary-color);
+        .content h2::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .content h3 {
+            color: var(--primary);
+            margin: 25px 0 12px;
+            font-size: 1.3em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .content h3 i {
+            margin-right: 8px;
+            font-size: 0.85em;
+        }
+
+        .content p {
+            margin: 12px 0;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .content ul, .content ol {
+            margin: 12px 0 15px;
+            padding-left: 20px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+        .content a {
+            color: var(--primary);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .references a:hover {
-            color: var(--primary-color);
-            text-decoration: underline;
+        .content a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
         }
 
-        .synthesis {
-            margin-top: 4rem;
-            padding: 2.5rem;
-            background-color: #d1e7ff;
-            border: 2px solid #0056b3;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        .content a:hover {
+            color: var(--secondary);
         }
 
-        .synthesis h3 {
-            color: #004085;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .content a:hover::after {
+            width: 100%;
         }
 
-        .synthesis h3 i {
-            margin-right: 0.8rem;
-        }
-
-        .synthesis p {
-            font-size: 1.1rem;
-            text-align: justify;
-        }
-
-        .divider {
-            border-top: 2px solid var(--border-color);
-            margin: 3rem 0;
-        }
-
-        .close-button-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 1.5rem;
-        }
-        
-        .close-button {
-            background-color: var(--secondary-color);
+        footer {
+            background: var(--dark);
             color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 20px;
+            position: relative;
         }
-        
-        .close-button:hover {
-            background-color: #5a6268;
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+
+            .timeline {
+                width: 100%;
+                padding: 15px;
+                position: relative;
+                top: 0;
+                max-height: none;
+            }
+
+            .content {
+                width: 100%;
+                padding: 15px;
+                max-height: none;
+            }
+
+            .content h2 {
+                font-size: 1.5em;
+            }
+
+            .content h3 {
+                font-size: 1.2em;
+            }
+
+            .content p, .content li {
+                font-size: 0.95em;
+            }
+
+            header {
+                flex-direction: column;
+                padding: 15px;
+                text-align: center;
+                height: auto;
+                min-height: 120px; /* Altura mínima para mobile */
+            }
+
+            .title {
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .title h1 {
+                font-size: 1.6em;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--secondary), var(--accent));
         }
     </style>
 </head>
 <body>
-
-<div class="container">
     <header>
-        <img src="https://bra.ifsp.edu.br/images/Imagem_Noticias/noticia_IFSP-BRA.jpg" alt="Logo IFSP-BRA">
-        <div class="header-text">
+        <img src="https://bra.ifsp.edu.br/images/Imagem_Noticias/noticia_IFSP-BRA.jpg" alt="Logo IFSP Campus Bragança Paulista" class="logo">
+        <div class="title">
             <h1>Tecnologia Educacional</h1>
-            <h2>Temas da Atividade Avaliativa</h2>
+            <p>Temas da Atividade Avaliativa</p>
         </div>
     </header>
 
-    <main>
-        <div class="topic">
-            <div class="topic-header">
-                <h3><i class="fas fa-book-open"></i>Tema 1: A escola no contexto da Sociedade da Informação e do Conhecimento</h3>
-                <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+    <div class="container">
+        <nav class="timeline">
+            <h2><i class="fas fa-list-ul"></i> Conteúdos</h2>
+            <div class="card" onclick="showContent(1)">
+                <h3>Tema 1: A escola no contexto da Sociedade da Informação e do Conhecimento</h3>
+                <p>Explore como escolas guiam alunos na era digital.</p>
             </div>
-            <div class="topic-content">
-                <div class="section-title"><i class="fas fa-compass"></i>Introdução ao tema</div>
-                <p>A transição para a Sociedade da Informação e do Conhecimento redefine radicalmente o papel da escola. Em um mundo onde o acesso à informação é instantâneo e onipresente, a instituição de ensino não pode mais se limitar a ser um simples transmissor de dados. Em vez disso, sua função central evolui para a de um **mediador crítico**, capacitando os estudantes a navegar com discernimento pelo vasto oceano de informações digitais. O foco passa a ser o desenvolvimento de competências como a autonomia, a colaboração e o pensamento crítico, elementos essenciais para a aprendizagem contínua e a adaptação a um cenário em constante mudança. A escola do século XXI é um espaço de reinvenção, que integra tecnologias para promover uma educação mais conectada e significativa.</p>
-
-                <div class="section-title"><i class="fas fa-brain"></i>Conceitos chave</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Sociedade da Informação:** Caracterizada pela digitalização da informação e sua importância econômica e cultural. Nesse modelo, o principal recurso é a informação, mas a simples posse não garante o sucesso.</li>
-                        <li>**Sociedade do Conhecimento:** Representa um avanço, focando não apenas na informação, mas na capacidade dos indivíduos e das instituições de **transformar essa informação em conhecimento útil, criativo e inovador**. A ênfase é na cognição e na capacidade de aplicar o que se aprende.</li>
-                        <li>**Escola como espaço de mediação:** A escola se torna uma "curadora" de saberes, guiando os alunos a discernir informações confiáveis de desinformação. Seu papel é promover o letramento digital, ou seja, a capacidade de ler, escrever e interpretar conteúdos em ambientes digitais.</li>
-                        <li>**Multiletramentos:** Um conceito que abrange não apenas a leitura e escrita tradicionais, mas também a capacidade de interpretar e produzir textos em diversas mídias (vídeos, hipertextos, memes, etc.) e linguagens, preparando o aluno para uma comunicação complexa.</li>
-                        <li>**Aprendizagem ao longo da vida (Lifelong Learning):** A ideia de que a educação não se encerra na escola ou universidade. É um processo contínuo e autodirigido, impulsionado pela necessidade de se manter relevante em um mercado de trabalho dinâmico e uma sociedade em constante evolução.</li>
-                        <li>**Inclusão digital:** Vai além do simples acesso à tecnologia. Trata-se de garantir que todos os indivíduos, independentemente de sua condição social ou geográfica, tenham as habilidades e os recursos para utilizar as TDICs de forma eficaz e significativa, combatendo a exclusão.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-balance-scale"></i>Impactos e desafios</div>
-                <div class="content-block">
-                    <h4>Benefícios:</h4>
-                    <ul>
-                        <li>**Acesso ampliado à informação e ao conhecimento:** As tecnologias rompem barreiras geográficas e sociais, permitindo que conteúdos de alta qualidade cheguem a locais remotos e a públicos que antes não tinham acesso a eles.</li>
-                        <li>**Estímulo à autonomia e à aprendizagem ativa:** O aluno deixa de ser um receptor passivo para se tornar um agente ativo em sua jornada de aprendizagem, pesquisando, colaborando e construindo o conhecimento de forma independente.</li>
-                        <li>**Personalização do ensino:** Ferramentas adaptativas e plataformas de ensino à distância permitem que o ritmo e o conteúdo sejam ajustados às necessidades individuais de cada estudante, tornando o aprendizado mais eficaz.</li>
-                    </ul>
-                    <h4>Desafios:</h4>
-                    <ul>
-                        <li>**Desigualdade de acesso (Exclusão Digital):** A falta de infraestrutura, equipamentos ou conexão de qualidade em certas regiões e comunidades aprofunda as desigualdades educacionais, criando uma lacuna entre os "conectados" e os "desconectados".</li>
-                        <li>**Sobrecarga informacional (Infoxicação)::** A enorme quantidade de dados disponíveis pode levar à dificuldade de processar, selecionar e dar sentido às informações, resultando em ansiedade e desorientação.</li>
-                        <li>**Resistência institucional:** Muitos sistemas educacionais e profissionais ainda resistem às mudanças, presos a modelos pedagógicos tradicionais que não se alinham com a dinâmica da sociedade digital.</li>
-                    </ul>
-                    <h4>Aspectos éticos:</h4>
-                    <ul>
-                        <li>**Privacidade de dados:** O uso de plataformas digitais levanta questões sobre a coleta e o uso de dados pessoais de estudantes, pais e professores, exigindo políticas claras de proteção e transparência.</li>
-                        <li>**Uso responsável das tecnologias:** É fundamental educar sobre a saúde digital, o uso consciente de telas e a prevenção do cyberbullying, garantindo que a tecnologia seja uma ferramenta de bem-estar, e não uma fonte de problemas.</li>
-                        <li>**Combate à desinformação:** A proliferação de notícias falsas e a manipulação de conteúdo digital tornam crucial que a escola ensine o pensamento crítico e a checagem de fatos como parte do currículo.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-school"></i>Exemplos práticos</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Projeto "Escola Conectada":** Uma iniciativa governamental que visa levar infraestrutura e conectividade a todas as escolas, assegurando que o acesso digital não seja um privilégio, mas um direito.</li>
-                        <li>**Uso de AVAs (Ambientes Virtuais de Aprendizagem):** Plataformas como Moodle e Google Classroom permitem a criação de salas de aula virtuais, onde é possível compartilhar materiais, interagir em fóruns, submeter atividades e receber feedback, ampliando o tempo e o espaço de aprendizagem.</li>
-                        <li>**Feiras de conhecimento digital:** Eventos que estimulam a criação de projetos digitais pelos alunos, como podcasts, blogs, vídeos educativos ou aplicativos, promovendo a autoria e a criatividade.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-question-circle"></i>Perguntas com respostas</div>
-                <div class="questions-block">
-                    <ul>
-                        <li>Como a escola pode formar cidadãos críticos na era digital? **A escola deve adotar uma abordagem de letramento digital crítico, ensinando os alunos a questionar a origem das informações, a analisar diferentes fontes e a identificar vieses. Metodologias como a Aprendizagem Baseada em Problemas (ABP) são ideais para isso, pois desafiam os estudantes a resolver questões complexas, aplicando o conhecimento de forma prática e reflexiva.**</li>
-                        <li>Quais competências são essenciais para o século XXI? **Além das habilidades tradicionais, são cruciais o pensamento crítico, a alfabetização digital (não só saber usar, mas entender o que se usa), a colaboração, a criatividade e a autonomia. A escola precisa focar no desenvolvimento dessas "soft skills", que são indispensáveis no mercado de trabalho e na vida social.**</li>
-                        <li>Como a exclusão digital afeta a educação? **A exclusão digital cria uma barreira significativa para o acesso ao conhecimento e à participação plena na sociedade. Alunos sem acesso à internet ou a dispositivos perdem oportunidades de pesquisa, colaboração e personalização do aprendizado, ampliando as desigualdades já existentes e limitando seu desenvolvimento acadêmico e profissional.**</li>
-                        <li>A escola deve competir ou colaborar com outras fontes de informação? **A escola deve definitivamente colaborar. O conhecimento não está mais restrito aos muros da escola. O ideal é que os educadores atuem como curadores, integrando mídias, redes sociais e plataformas online ao currículo, transformando-os em ferramentas pedagógicas e ensinando os alunos a utilizá-los de forma produtiva.**</li>
-                        <li>Como equilibrar inovação e tradição? **O equilíbrio se dá com intencionalidade pedagógica. A tecnologia deve ser uma ferramenta a serviço de um objetivo educacional claro, e não apenas um fim em si mesma. É preciso valorizar o que funciona no ensino tradicional (como a interação humana e o respeito aos valores) e integrá-lo com as novas possibilidades que a tecnologia oferece, criando um ambiente de aprendizado rico e adaptável.**</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-book"></i>Referências sugeridas</div>
-                <div class="references">
-                    <ul>
-                        <li>LÉVY, Pierre. *Cibercultura*. São Paulo: Editora 34, 1999.</li>
-                        <li>CASTELLS, Manuel. *A sociedade em rede*. São Paulo: Paz e Terra, 1999.</li>
-                        <li>MORAN, José. *A educação que desejamos*. Papirus, 2007.</li>
-                        <li><a href="https://periodicos.ufes.br/kirikere/article/view/46326" target="_blank">Tecnologias Digitais de Informação e Comunicação na educação e inovação pedagógica</a>.</li>
-                    </ul>
-                </div>
-                <div class="close-button-container">
-                    <button class="close-button">Fechar Tema</button>
-                </div>
+            <div class="card" onclick="showContent(2)">
+                <h3>Tema 2: A cibercultura e as novas formas de aprender e ensinar</h3>
+                <p>Descubra como a internet transforma a educação.</p>
             </div>
-        </div>
-
-        <div class="topic">
-            <div class="topic-header">
-                <h3><i class="fas fa-globe"></i>Tema 2: A cibercultura e as novas formas de aprender e ensinar</h3>
-                <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+            <div class="card" onclick="showContent(3)">
+                <h3>Tema 3: As TDICs e os processos de ensino-aprendizagem</h3>
+                <p>Entendida como tecnologias ampliam o aprendizado.</p>
             </div>
-            <div class="topic-content">
-                <div class="section-title"><i class="fas fa-compass"></i>Introdução ao tema</div>
-                <p>A cibercultura, termo popularizado por Pierre Lévy, refere-se ao conjunto de práticas, valores e modos de interação que emergem do uso intensivo das tecnologias digitais, especialmente a internet. Na educação, ela representa uma mudança de paradigma, deslocando o aprendizado de um modelo centralizado e hierárquico para um ambiente em rede, colaborativo e interativo. Nesse novo contexto, a aprendizagem acontece em múltiplos espaços e tempos, e o conhecimento não é mais uma posse exclusiva do professor, mas um processo de construção coletiva.</p>
-
-                <div class="section-title"><i class="fas fa-brain"></i>Conceitos chave</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Cibercultura:** O universo cultural, social e técnico que nasce da interação entre a sociedade e as tecnologias digitais. Ela influencia nossa forma de pensar, comunicar e construir o conhecimento.</li>
-                        <li>**Aprendizagem em rede:** Ocorre por meio de conexões e interações em plataformas online, fóruns e redes sociais, onde o conhecimento é compartilhado e cocriado entre pares, professores e outros agentes.</li>
-                        <li>**Hipertexto:** Um modo de organização da informação que permite a navegação não-linear por meio de links. No contexto educativo, o hipertexto incentiva a curiosidade e a busca por informações correlacionadas, rompendo com a estrutura linear dos livros didáticos.</li>
-                        <li>**Educação ubíqua:** A ideia de que a aprendizagem pode acontecer a qualquer hora, em qualquer lugar, por meio de dispositivos móveis. As barreiras de tempo e espaço se desfazem, e o aprendizado se integra à vida cotidiana do aluno.</li>
-                        <li>**Interatividade:** A capacidade de um sistema digital permitir a interação e a participação ativa do usuário. Em educação, isso significa que o aluno não apenas recebe conteúdo, mas pode manipulá-lo, produzir novos materiais e interagir com outros usuários de forma dinâmica.</li>
-                        <li>**Cultura participativa:** Um ambiente onde os indivíduos, especialmente os mais jovens, sentem-se à vontade para criar e compartilhar seus próprios conteúdos digitais, seja por meio de vídeos no YouTube, blogs ou wikis. A escola pode e deve aproveitar essa cultura para promover a autoria e o protagonismo estudantil.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-balance-scale"></i>Impactos e desafios</div>
-                <div class="content-block">
-                    <h4>Benefícios:</h4>
-                    <ul>
-                        <li>**Estímulo à autoria e autonomia:** A cibercultura oferece ferramentas para que os alunos se tornem criadores de conteúdo, e não apenas consumidores, desenvolvendo habilidades de produção e expressão.</li>
-                        <li>**Ampliação do acesso e expressão:** Alunos podem acessar conteúdos de alta qualidade de universidades renomadas e expressar suas ideias para uma audiência global, ultrapassando os limites da sala de aula física.</li>
-                        <li>**Valorização da diversidade:** A internet é um espaço multicultural onde diferentes perspectivas podem ser compartilhadas e debatidas, enriquecendo a experiência de aprendizado e promovendo a tolerância e o respeito.</li>
-                    </ul>
-                    <h4>Desafios:</h4>
-                    <ul>
-                        <li>**Superficialidade nos conteúdos:** A velocidade da informação pode levar a uma leitura e compreensão superficiais, sem o aprofundamento necessário para a construção de um conhecimento sólido.</li>
-                        <li>**Distrações digitais:** O ambiente online é repleto de estímulos que podem desviar a atenção do estudante, como redes sociais, jogos e notificações, dificultando o foco nas tarefas acadêmicas.</li>
-                        <li>**Formação docente insuficiente:** A falta de capacitação de muitos professores impede a integração efetiva das tecnologias, limitando-as a meras ferramentas de "reprodução" de conteúdo.</li>
-                    </ul>
-                    <h4>Aspectos éticos:</h4>
-                    <ul>
-                        <li>**Direitos autorais:** O fácil acesso à informação levanta a questão do uso de materiais protegidos por direitos autorais, exigindo que os alunos sejam educados sobre a ética do plágio e o uso de licenças Creative Commons.</li>
-                        <li>**Inclusão digital:** É fundamental garantir que a cibercultura não aprofunde as desigualdades, mas seja um meio de democratização do acesso à informação.</li>
-                        <li>**Combate à desinformação:** A proliferação de fake news e conteúdo manipulado é um desafio central que a escola deve enfrentar, ensinando os alunos a verificar fatos e a desenvolver um olhar crítico.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-school"></i>Exemplos práticos</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Produção de podcasts e vídeos didáticos:** Os alunos podem criar seus próprios materiais de estudo e compartilhá-los, transformando o conteúdo do currículo em um projeto criativo.</li>
-                        <li>**Projetos colaborativos com Padlet e Trello:** Ferramentas online que permitem a organização de ideias e a colaboração em tempo real, facilitando o trabalho em grupo e a gestão de projetos.</li>
-                        <li>**Gamificação com Kahoot e Classcraft:** A aplicação de elementos de jogos em contextos educacionais, como pontuações, desafios e recompensas, tornando o aprendizado mais engajador e divertido.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-question-circle"></i>Perguntas com respostas</div>
-                <div class="questions-block">
-                    <ul>
-                        <li>Como a cibercultura modifica o papel do professor? **O professor deixa de ser a única fonte de conhecimento para se tornar um mediador, um curador de conteúdo e um facilitador do aprendizado. Sua função passa a ser a de orientar os alunos na busca por informações relevantes, incentivá-los a colaborar e a desenvolver a autonomia, e ajudá-los a dar sentido à vasta quantidade de dados disponíveis.**</li>
-                        <li>Quais riscos existem na aprendizagem exclusivamente digital? **Quando a aprendizagem se restringe ao digital, há riscos como a superficialidade na absorção do conteúdo, a exclusão de alunos com pouco acesso e a perda de habilidades interpessoais e de comunicação face a face. O ensino híbrido é uma abordagem que busca mitigar esses riscos, combinando o melhor dos dois mundos.**</li>
-                        <li>Como a escola pode promover a autoria dos alunos? **A autoria é promovida quando se oferece aos alunos a oportunidade de produzir seu próprio conteúdo. Isso pode ser feito por meio da criação de blogs, vlogs, wikis ou projetos multimídia. A escola deve fornecer as ferramentas e o apoio necessários, além de um ambiente que valorize a criatividade e a expressão individual.**</li>
-                        <li>A interatividade garante o engajamento do aluno? **A interatividade é um componente crucial, mas não é garantia de engajamento por si só. O verdadeiro engajamento ocorre quando a interação é significativa e contextualizada, ou seja, quando a tecnologia é usada para resolver problemas reais, para colaborar em projetos relevantes e para aprofundar o conhecimento de forma interessante.**</li>
-                        <li>Como lidar com as distrações digitais na sala de aula? **Lidar com as distrações exige estratégias de foco e uso consciente. Em vez de simplesmente proibir, o professor pode ensinar os alunos a gerenciar seu tempo online, a utilizar a técnica de "pomodoro" para estudar e a reconhecer os momentos em que a tecnologia pode ser uma distração, promovendo a disciplina digital.**</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-book"></i>Referências sugeridas</div>
-                <div class="references">
-                    <ul>
-                        <li>LÉVY, Pierre. *Cibercultura*. São Paulo: Editora 34, 1999.</li>
-                        <li>SANTAELLA, Lucia. *Cibercultura*. São Paulo: Cortez, 2003.</li>
-                        <li>PRETTO, Nelson. *Educação e cibercultura*. Autêntica, 2005.</li>
-                        <li><a href="https://educapes.capes.gov.br/handle/capes/972599?mode=full" target="_blank">Cibercultura e Educação: Impactos, Possibilidades e Desafios</a>.</li>
-                        <li><a href="https://revistatopicos.com.br/artigos/humanidades-em-rede-pensamento-critico-cultura-digital-e-educacao-transformadora" target="_blank">Humanidades em rede: pensamento crítico, cultura digital e educação transformadora</a>.</li>
-                    </ul>
-                </div>
-                <div class="close-button-container">
-                    <button class="close-button">Fechar Tema</button>
-                </div>
+            <div class="card" onclick="showContent(4)">
+                <h3>Tema 4: Metodologias ativas e tecnologias digitais</h3>
+                <p>Veja como as aulas lideram sua própria aprendizagem.</p>
             </div>
-        </div>
-
-        <div class="topic">
-            <div class="topic-header">
-                <h3><i class="fas fa-desktop"></i>Tema 3: As TDICs e os processos de ensino-aprendizagem</h3>
-                <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+            <div class="card" onclick="showContent(5)">
+                <h3>Tema 5: Políticas públicas para TDICs na educação</h3>
+                <p>Conheça iniciativas para tornar a educação digital acessível.</p>
             </div>
-            <div class="topic-content">
-                <div class="section-title"><i class="fas fa-compass"></i>Introdução ao tema</div>
-                <p>As Tecnologias Digitais de Informação e Comunicação (TDICs) representam um conjunto de ferramentas e recursos que, quando integrados de forma intencional e estratégica aos processos pedagógicos, têm o poder de transformar a maneira como ensinamos e aprendemos. Elas não são meros acessórios, mas sim instrumentos capazes de ampliar o acesso ao conhecimento, personalizar a trajetória de aprendizagem e promover a interatividade, o que exige um planejamento pedagógico cuidadoso e, acima de tudo, a formação contínua dos professores.</p>
-
-                <div class="section-title"><i class="fas fa-brain"></i>Conceitos chave</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**TDICs:** A sigla abrange uma vasta gama de ferramentas e recursos, como computadores, smartphones, internet, softwares educativos, redes sociais e ambientes virtuais de aprendizagem. A chave para seu uso eficaz é a **integração pedagógica**, ou seja, utilizá-las com um objetivo claro de aprendizagem.</li>
-                        <li>**Ensino híbrido:** Um modelo educacional que combina o melhor do ensino presencial (interação face a face, atividades práticas) com o ensino online (acesso a conteúdos, personalização do ritmo de estudo). A sala de aula invertida é um exemplo comum dessa metodologia.</li>
-                        <li>**AVA (Ambiente Virtual de Aprendizagem):** Plataformas como Moodle, Google Classroom e Canvas funcionam como salas de aula virtuais, oferecendo ferramentas para gestão de cursos, fóruns de discussão, entrega de tarefas e avaliação, centralizando a experiência de aprendizado.</li>
-                        <li>**Personalização:** A capacidade de adaptar a experiência de aprendizagem às necessidades, interesses e ritmo de cada aluno. As TDICs permitem a personalização por meio de plataformas adaptativas, que ajustam o conteúdo e a dificuldade com base no desempenho do estudante.</li>
-                        <li>**Aprendizagem colaborativa:** Um modelo que incentiva o trabalho em grupo e a construção coletiva do conhecimento. Ferramentas digitais como Google Docs, Trello e Padlet facilitam a colaboração em tempo real, mesmo a distância.</li>
-                        <li>**Feedback automatizado:** A utilização de ferramentas que fornecem retorno imediato sobre o desempenho do aluno, como quizzes online e plataformas de exercícios. Esse feedback instantâneo ajuda o estudante a identificar suas dificuldades e a corrigi-las rapidamente.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-balance-scale"></i>Impactos e desafios</div>
-                <div class="content-block">
-                    <h4>Benefícios:</h4>
-                    <ul>
-                        <li>**Acesso ampliado e democratização:** As TDICs permitem que o conhecimento chegue a alunos que, de outra forma, não teriam acesso a ele, seja por barreiras geográficas ou sociais.</li>
-                        <li>**Autonomia e protagonismo:** O aluno ganha um papel ativo em sua aprendizagem, podendo buscar informações, escolher a melhor forma de estudar e organizar seus próprios projetos.</li>
-                        <li>**Diversidade de formatos:** O uso de vídeos, podcasts, jogos e infográficos torna o conteúdo mais atraente e acessível, atendendo a diferentes estilos de aprendizagem.</li>
-                    </ul>
-                    <h4>Desafios:</h4>
-                    <ul>
-                        <li>**Formação docente limitada:** Muitos professores não foram preparados para utilizar as TDICs de forma pedagógica, o que leva a um uso superficial e pouco eficaz das ferramentas.</li>
-                        <li>**Dependência tecnológica:** Um excesso de dependência da tecnologia pode levar à falta de habilidades essenciais, como a escrita à mão, a concentração sem tela e a interação face a face.</li>
-                        <li>**Integração curricular:** A inserção das TDICs não deve ser um simples "aditivo", mas sim uma parte orgânica e bem planejada do currículo, o que exige uma reestruturação profunda.</li>
-                    </ul>
-                    <h4>Aspectos éticos:</h4>
-                    <ul>
-                        <li>**Proteção de dados:** A segurança e a privacidade dos dados dos alunos são questões cruciais. É preciso garantir que as plataformas utilizadas sigam políticas de proteção de dados e que a comunidade escolar esteja ciente de seus direitos.</li>
-                        <li>**Equidade:** O uso das TDICs deve ser planejado para reduzir, e não para ampliar, as desigualdades. Isso implica em políticas públicas de acesso e na adaptação de conteúdos para diferentes realidades.</li>
-                        <li>**Uso significativo:** É essencial que o uso da tecnologia tenha um propósito pedagógico claro, evitando que se torne uma mera distração ou uma reprodução de métodos antigos.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-school"></i>Exemplos práticos</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Simuladores como PhET:** Ferramentas interativas que permitem aos alunos visualizar e manipular conceitos complexos de física e química de forma prática, tornando o aprendizado mais intuitivo.</li>
-                        <li>**Plataformas adaptativas como Khan Academy:** Permitem que os alunos estudem em seu próprio ritmo, com exercícios que se adaptam ao nível de dificuldade, oferecendo um aprendizado personalizado e eficiente.</li>
-                        <li>**Projetos com redes sociais:** O uso de plataformas como Instagram ou TikTok para a criação de conteúdo educativo, como resumos de livros ou experimentos científicos, estimulando a criatividade e a autoria.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-question-circle"></i>Perguntas com respostas</div>
-                <div class="questions-block">
-                    <ul>
-                        <li>TDICs melhoram a aprendizagem por si só? **Não. A tecnologia é uma ferramenta. Sua eficácia depende da mediação pedagógica, ou seja, da forma como o professor planeja e conduz as atividades. Sem um bom planejamento, uma ferramenta sofisticada pode se tornar tão inútil quanto um livro que ninguém lê. A intenção pedagógica é sempre mais importante que o recurso tecnológico em si.**</li>
-                        <li>Como garantir inclusão na educação digital? **A inclusão digital exige políticas públicas robustas que garantam acesso a infraestrutura e equipamentos, além de uma abordagem pedagógica que adapte o conteúdo para as realidades dos alunos. É fundamental ter recursos offline, materiais impressos complementares e estratégias de apoio para aqueles que não possuem acesso constante à internet.**</li>
-                        <li>Qual o papel do professor na era das TDICs? **O professor se transforma em um "designer de experiências de aprendizagem" e em um facilitador. Sua função é criar ambientes ricos em estímulos, selecionar as melhores ferramentas, orientar a pesquisa dos alunos e promover a reflexão crítica. Ele é o guia que ajuda o estudante a dar sentido ao conhecimento e a conectar os pontos.**</li>
-                        <li>Como evitar o uso superficial das tecnologias na escola? **O uso superficial é evitado por meio de formação continuada de professores e de um planejamento pedagógico sólido. As escolas devem investir em capacitação que vá além do uso técnico da ferramenta, focando na sua aplicação em projetos significativos, que estimulem o pensamento crítico e a colaboração, em vez de se restringir à simples reprodução de conteúdo.**</li>
-                        <li>As TDICs substituem o ensino presencial? **Não. As TDICs são complementares ao ensino presencial. Embora permitam a expansão dos espaços e tempos de aprendizagem, a interação humana, a socialização e a comunicação face a face continuam sendo componentes essenciais para o desenvolvimento integral do aluno. O ensino híbrido é a prova de que a tecnologia pode enriquecer, mas não substituir a presença física.**</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-book"></i>Referências sugeridas</div>
-                <div class="references">
-                    <ul>
-                        <li>MORAN, José. *Mudando a educação com metodologias ativas*. Papirus, 2018.</li>
-                        <li>BACICH, Lilian; MORAN, José; TREVISANI, Fernando. *Metodologias ativas para uma educação inovadora*. Penso, 2015.</li>
-                        <li>VALENTE, José Armando. *Tecnologia na escola: o que fazer?*. UNICAMP, 2002.</li>
-                        <li><a href="https://www.researchgate.net/publication/374835111_TDIC_E_EDUCACAO_desafios_e_possibilidades_na_pratica_pedagogica" target="_blank">TDIC e Educação: desafios e possibilidades na prática pedagógica</a>.</li>
-                        <li><a href="https://monografias.ufma.br/jspui/bitstream/123456789/8777/1/RAQUEL%20AGUIAR%20DO%20NASCIMENTO.pdf" target="_blank">Políticas públicas para inclusão digital na educação básica</a>.</li>
-                    </ul>
-                </div>
-                <div class="close-button-container">
-                    <button class="close-button">Fechar Tema</button>
-                </div>
+            <div class="card" onclick="showContent(6)">
+                <h3>Tema 6: Formação de professores e TDICs</h3>
+                <p>Aprenda como professores se preparam para a era digital.</p>
             </div>
-        </div>
-
-        <div class="topic">
-            <div class="topic-header">
-                <h3><i class="fas fa-flask"></i>Tema 4: Metodologias ativas e tecnologias digitais de informação e comunicação</h3>
-                <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+            <div class="card" onclick="showContent(7)">
+                <h3>Tema 7: TDICs como ferramentas de aprendizagem</h3>
+                <p>Explore ferramentas que tornam o estudo mais dinâmico.</p>
             </div>
-            <div class="topic-content">
-                <div class="section-title"><i class="fas fa-compass"></i>Introdução ao tema</div>
-                <p>As metodologias ativas representam um conjunto de abordagens pedagógicas que colocam o estudante no centro do processo de aprendizagem, transformando-o de um receptor passivo para um agente ativo na construção do próprio conhecimento. Quando combinadas com as Tecnologias Digitais de Informação e Comunicação (TDICs), essas metodologias ganham um poder ainda maior, permitindo que o ensino seja mais personalizado, colaborativo e engajador. As TDICs funcionam como um catalisador para as metodologias ativas, ampliando suas possibilidades de aplicação em sala de aula.</p>
-
-                <div class="section-title"><i class="fas fa-brain"></i>Conceitos chave</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Metodologias ativas:** Abordagens pedagógicas que incentivam a participação ativa dos alunos, como a Aprendizagem Baseada em Projetos, a Sala de Aula Invertida e a Gamificação. O foco é a resolução de problemas e a construção prática do conhecimento.</li>
-                        <li>**Aprendizagem baseada em problemas (ABP):** Uma metodologia que propõe um problema do mundo real para ser resolvido pelos alunos. As TDICs facilitam a pesquisa, a coleta de dados e a colaboração para a solução do problema.</li>
-                        <li>**Sala de aula invertida (Flipped Classroom):** O modelo tradicional é invertido: o aluno estuda o conteúdo teórico em casa (por meio de vídeos, podcasts ou textos digitais) e utiliza o tempo em sala de aula para discutir, tirar dúvidas e aplicar o conhecimento de forma prática com o professor.</li>
-                        <li>**Gamificação:** A aplicação de elementos de jogos (como pontuações, medalhas e competições) em contextos educacionais. As TDICs oferecem diversas plataformas para gamificar o aprendizado, tornando-o mais motivador e divertido.</li>
-                        <li>**Ensino híbrido:** Um modelo que combina momentos de ensino presencial e online. Ele é a espinha dorsal de muitas metodologias ativas, permitindo que a tecnologia seja usada para personalizar e otimizar o tempo de aula.</li>
-                        <li>**Design instrucional:** O processo de planejar, desenvolver e entregar materiais e experiências de aprendizagem. No contexto das metodologias ativas, o design instrucional é crucial para garantir que a tecnologia seja utilizada de forma intencional e alinhada com os objetivos pedagógicos.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-balance-scale"></i>Impactos e desafios</div>
-                <div class="content-block">
-                    <p>**Benefícios:** O uso de TDICs com metodologias ativas aumenta o **engajamento** dos alunos, que se sentem mais motivados a participar e a colaborar. A **autonomia** é desenvolvida à medida que eles precisam buscar e organizar o conhecimento por conta própria. Além disso, há um ganho significativo no desenvolvimento de **competências do século XXI**, como a colaboração, a criatividade e o pensamento crítico.</p>
-                    <p>**Desafios:** Um dos principais desafios é a **resistência à mudança**, tanto por parte de professores quanto de alunos e pais que estão acostumados ao modelo tradicional. A **formação docente** é outro ponto crítico, pois exige que o professor mude seu papel de transmissor para o de mediador. A **avaliação** também se torna mais complexa, exigindo instrumentos que avaliem não apenas o conteúdo, mas o processo e as competências desenvolvidas.</p>
-                    <p>**Ética:** É essencial garantir a **equidade** no acesso às ferramentas, para que as metodologias ativas não se tornem um privilégio de poucos. O **respeito à diversidade** de ritmos e estilos de aprendizagem é fundamental. Além disso, a tecnologia deve ser usada com uma **intencionalidade pedagógica** clara, evitando que as atividades se tornem apenas passatempos digitais.</p>
-                </div>
-
-                <div class="section-title"><i class="fas fa-school"></i>Exemplos práticos</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Projetos interdisciplinares com Canva e Padlet:** Alunos podem usar o Canva para criar infográficos e apresentações visualmente atraentes e o Padlet para organizar e compartilhar ideias, facilitando a colaboração em projetos de pesquisa ou criação de portfólios.</li>
-                        <li>**Sala de aula invertida com vídeos e quizzes:** O professor pode usar vídeos do YouTube ou criar seus próprios materiais didáticos, complementando-os com quizzes online (como o Google Forms) para verificar a compreensão do aluno antes da aula presencial.</li>
-                        <li>**Gamificação com Matific e Prodigy:** Plataformas que transformam a aprendizagem de matemática em um jogo, com avatares e desafios, tornando o estudo de um conteúdo que muitos consideram difícil em uma experiência divertida e motivadora.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-question-circle"></i>Perguntas com respostas</div>
-                <div class="questions-block">
-                    <ul>
-                        <li>Qual o papel do aluno em um contexto de metodologias ativas e TDICs? **Nesse cenário, o aluno torna-se o protagonista da sua própria aprendizagem. Ele não é mais um "recipiente vazio" a ser preenchido, mas um explorador, um pesquisador e um criador. Ele assume a responsabilidade por sua jornada de conhecimento, buscando ativamente as informações e colaborando com os colegas para resolver desafios propostos.**</li>
-                        <li>As TDICs são indispensáveis para as metodologias ativas? **Não, elas não são indispensáveis, mas potencializam enormemente as metodologias ativas. É possível aplicar a Aprendizagem Baseada em Projetos sem tecnologia, mas o uso de ferramentas digitais facilita a pesquisa, a colaboração e a apresentação dos resultados, tornando a experiência mais rica e alinhada com as demandas do mundo atual.**</li>
-                        <li>Como o professor precisa se preparar para essa mudança? **O professor precisa se preparar para ser um mediador e um inovador. Isso envolve buscar formação contínua, explorar novas ferramentas e, mais importante, repensar sua prática pedagógica. Ele deve aprender a guiar a aprendizagem, a criar projetos desafiadores e a utilizar a tecnologia de forma estratégica para potencializar o engajamento e a autonomia dos alunos.**</li>
-                        <li>Como avaliar a aprendizagem nessas metodologias? **A avaliação deve ser processual e diversificada. Em vez de se basear apenas em provas tradicionais, o professor pode utilizar rubricas de avaliação para projetos, portfólios digitais, autoavaliações dos alunos e observação do processo colaborativo. O foco deve ser nas competências desenvolvidas, e não apenas na memorização de conteúdos.**</li>
-                        <li>O que causa a superficialidade na aplicação dessas metodologias? **A superficialidade ocorre quando não há um planejamento pedagógico consistente. Se as TDICs e as metodologias ativas são usadas apenas como "modismos" ou para "dar ares de modernidade" à escola, sem um objetivo de aprendizagem claro, elas podem se tornar ineficazes. O segredo é ter uma intencionalidade pedagógica bem definida para cada atividade.**</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-book"></i>Referências sugeridas</div>
-                <div class="references">
-                    <ul>
-                        <li>BACICH, Lilian; MORAN, José; TREVISANI, Fernando. *Metodologias ativas para uma educação inovadora*. Penso, 2015.</li>
-                        <li>MORAN, José. *A educação que desejamos*. Papirus, 2007.</li>
-                        <li><a href="https://educacaopublica.cecierj.edu.br/artigos/25/33/a-utilizacao-das-tdic-e-metodologias-ativas-no-ensino-medio" target="_blank">A utilização das TDIC e metodologias ativas no Ensino Médio</a>.</li>
-                        <li><a href="https://revistavalore.emnuvens.com.br/valore/article/view/1341" target="_blank">A gamificação como metodologia ativa no ensino-aprendizagem</a>.</li>
-                    </ul>
-                </div>
-                <div class="close-button-container">
-                    <button class="close-button">Fechar Tema</button>
-                </div>
+            <div class="card" onclick="showContent(8)">
+                <h3>Tema 8: Práticas pedagógicas mediadas por tecnologia</h3>
+                <p>Descubra como tech torna aulas mais interativas.</p>
             </div>
-        </div>
-
-        <div class="topic">
-            <div class="topic-header">
-                <h3><i class="fas fa-building"></i>Tema 5: Políticas públicas para a inserção das tecnologias digitais de informação e comunicação na educação</h3>
-                <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+            <div class="card" onclick="showContent(9)">
+                <h3>Síntese Final</h3>
+                <p>Resumo dos temas e o futuro da educação digital.</p>
             </div>
-            <div class="topic-content">
-                <div class="section-title"><i class="fas fa-compass"></i>Introdução ao tema</div>
-                <p>A inserção eficaz das Tecnologias Digitais de Informação e Comunicação (TDICs) na educação não pode depender apenas da iniciativa de professores ou escolas isoladas. Para que a transformação seja equitativa e de grande escala, é fundamental o papel das **políticas públicas**. Tais políticas representam ações governamentais que visam garantir infraestrutura tecnológica, formar docentes para o novo cenário, produzir conteúdos digitais de qualidade e assegurar a inclusão digital para todos os cidadãos, promovendo a inovação pedagógica e a melhoria da qualidade do ensino.</p>
+        </nav>
 
-                <div class="section-title"><i class="fas fa-brain"></i>Conceitos chave</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Política pública educacional:** Conjunto de programas, ações e diretrizes do governo (em nível federal, estadual ou municipal) para a área da educação. Para as TDICs, isso inclui desde a compra de computadores até a capacitação de professores e a criação de plataformas digitais.</li>
-                        <li>**Inclusão digital:** Ações que buscam garantir o acesso equitativo à internet e às tecnologias, tanto em termos de infraestrutura (acesso físico) quanto de habilidades (capacitação para o uso). É um pilar fundamental para que as tecnologias não reforcem as desigualdades sociais.</li>
-                        <li>**Infraestrutura tecnológica:** A base material para o uso das TDICs nas escolas. Inclui a disponibilidade de banda larga de qualidade, equipamentos como computadores e tablets, e ambientes físicos adequados (como laboratórios de informática ou salas com conexão Wi-Fi).</li>
-                        <li>**Formação continuada:** Capacitação de professores ao longo de suas carreiras. Para as TDICs, é essencial que os educadores recebam treinamento não apenas para usar as ferramentas, mas para integrá-las de forma significativa e pedagógica ao currículo.</li>
-                        <li>**Conteúdos digitais educacionais:** Materiais didáticos em formato digital, como videoaulas, simuladores, aplicativos e jogos educativos. As políticas públicas devem incentivar a produção e a distribuição de conteúdos de alta qualidade e que sejam alinhados à Base Nacional Comum Curricular (BNCC).</li>
-                        <li>**Avaliação e monitoramento:** O acompanhamento e a avaliação das políticas implementadas para garantir que elas estejam atingindo seus objetivos. Sem monitoramento, não é possível saber se o investimento em tecnologia está realmente gerando resultados positivos no aprendizado dos alunos.</li>
-                    </ul>
-                </div>
+        <main class="content" id="content-1">
+            <h2>Tema 1: A escola no contexto da Sociedade da Informação e do Conhecimento</h2>
+            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
+            <p>Imagine a informação como um rio fluindo rapidamente, cheio de dados de todos os cantos do mundo. A escola, hoje, é como um guia que te ajuda a navegar esse rio, ensinando não só a encontrar conhecimento, mas a usá-lo de forma crítica e criativa. Na Sociedade da Informação e do Conhecimento, onde as tecnologias digitais dominam a produção e o acesso à informação, a escola não é mais a única fonte de saber. Ela se reinventa para você se preparar para aprender sempre, colaborando e pensando criticamente. <strong>Atividade: Liste três formas de como você usa a internet para aprender algo novo.</strong></p>
+            
+            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
+            <ul>
+                <li><strong>Sociedade da Informação</strong>: Um mundo onde a informação é o maior recurso, como o petróleo na economia digital.</li>
+                <li><strong>Sociedade do Conhecimento</strong>: Vai além da informação, focando em transformá-la em algo útil,como aprender a cozinhar com um vídeo do YouTube.</li>
+                <li><strong>Escola como espaço de mediação</strong>: A escola organiza e filtra informações, ajudando você a entender o que é confiável, como um bibliotecário digital.</li>
+                <li><strong>Multiletramentos</strong>: Habilidade de "ler" e criar em várias mídias, como entender um meme, escrever um e-mail ou gravar um vídeo.</li>
+                <li><strong>Aprendizagem ao longo da vida</strong>: Continue aprendendo sempre, mesmo após a escola, como fazer um curso online aos 40 anos.</li>
+                <li><strong>Inclusão digital</strong>: Garantir que todos, independentemente de onde vivem, tenham acesso a dispositivos e internet.</li>
+            </ul>
+            
+            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
+            <p><strong>Benefícios:</strong></p>
+            <ul>
+                <li>Acesso a um mundo de informações, como passeios virtuais por museus globais.</li>
+                <li>Autonomia para aprender no seu ritmo, como pausar um vídeo de química.</li>
+                <li>Personalização, com aulas adaptadas ao seu estilo de aprendizagem.</li>
+                <li>Conexão global, permitindo colaborar com estudantes de outros países.</li>
+            </ul>
+            
+            <p><strong>Desafios:</strong></p>
+            <ul>
+                <li>Desigualdade de acesso: nem têm internet rápida ou computadores.</li>
+                <li>Sobrecarga informacional: como escolher entre milhares de postagens no Instagram?</li>
+                <li>Resistência à mudança: algumas escolas conhecem métodos tradicionais.</li>
+            </ul>
+            
+            <p><strong>Aspectos éticos:</strong></p>
+            <ul>
+                <li>Proteger seus dados pessoais online, como senhas ou fotos.</li>
+                <li>Usar a tecnologia de forma responsável, sem espalhar fake news.</li>
+                <li>Combater a desinformação verificando fontes antes de compartilhar.</li>
+            </ul>
+            
+            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
+            <ul>
+                <li>Projeto "Escola Conectada" traz Wi-Fi para escolas públicas.</li>
+                <li>Criando uma apresentação colaborativa no Google Slides.</li>
+                <li>Usando a Khan Academy para reforçar matemática.</li>
+                <li>Feiras de conhecimento digital, como exibir projetos em realidade aumentada.</li>
+            </ul>
+            
+            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
+            <ol>
+                <li><strong>Como formar cidadãos críticos?</strong> Ensinando a analisar fontes, usar letramento digital e metodologias como ABP (Aprendizagem Baseada em Problemas).</li>
+                <li><strong>Quais competências são essenciais?</strong> Pensamento crítico, alfabetização digital, colaboração e autonomia.</li>
+                <li><strong>Como a exclusão digital afeta a educação?</strong> Limita o acesso a recursos, ampliando desigualdades.</li>
+                <li><strong>A escola deve competir ou colaborar com outras fontes?</strong> Colaborar, integrando mídias como YouTube ao currículo.</li>
+                <li><strong>Como equilibrar inovação e tradição?</strong> Usando tecnologia com propósito, mantendo valores como respeito e diálogo.</li>
+                <li><strong>Como você decide quais fontes online são independentes?</strong> Compare duas notícias sobre um mesmo tema e lista o que torna uma confiança.</li>
+            </ol>
+            
+            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
+            <ul>
+                <li>LÉVY, Pierre. <em>Cibercultura</em> (1999) – Explora como a cultura digital molda nossas vidas.</li>
+                <li>CASTELLS, Manuel. <em>A sociedade em rede</em> (1999) – Mostra como a internet conecta o mundo.</li>
+                <li>MORAN, José. <em>A educação que desejamos</em> (2007) – Propõe uma educação mais dinâmica e conectada.</li>
+                <li><a href="https://periodicos.ufes.br/kirikere/article/view/46326" target="_blank">Artigo: Tecnologias Digitais de Informação e Comunicação na educação e inovação</a> – Discute como a tecnologia transforma a escola.</li>
+            </ul>
+        </main>
 
-                <div class="section-title"><i class="fas fa-balance-scale"></i>Impactos e desafios</div>
-                <div class="content-block">
-                    <p>**Benefícios:** Políticas públicas bem-sucedidas têm o potencial de **reduzir as desigualdades**, garantindo que mesmo as escolas mais remotas tenham acesso a recursos de qualidade. Elas **estimulam a inovação** pedagógica em larga escala e contribuem para a formação de uma **cidadania digital**, em que os alunos aprendem a usar a tecnologia de forma crítica e responsável.</p>
-                    <p>**Desafios:** Um dos principais obstáculos é a **descontinuidade política**, em que programas de governo são interrompidos a cada mudança de gestão. A **falta de articulação** entre os diferentes níveis de governo (federal, estadual, municipal) e entre as secretarias também é um problema. Além disso, a **resistência institucional** por parte de setores da educação pode dificultar a implementação de novas tecnologias.</p>
-                    <p>**Ética:** As políticas devem garantir o **acesso universal**, sem deixar ninguém para trás. A **diversidade regional** e cultural do país exige que as políticas sejam flexíveis e adaptáveis a diferentes contextos. A **transparência** na alocação de recursos e na avaliação dos resultados é fundamental para a boa governança.</p>
-                </div>
+        <!-- Conteúdo dos outros temas (2-9) permanece inalterado -->
+        <!-- Mantive apenas o conteúdo do tema 1 como exemplo para economizar espaço -->
 
-                <div class="section-title"><i class="fas fa-school"></i>Exemplos práticos</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Programa Educação Conectada:** Uma iniciativa do MEC que busca universalizar a conectividade de alta velocidade nas escolas públicas, além de apoiar a formação de professores e a criação de conteúdos digitais.</li>
-                        <li>**ProInfo Integrado:** Um programa que, ao longo dos anos, forneceu equipamentos e laboratórios de informática para as escolas, buscando promover o uso pedagógico das tecnologias.</li>
-                        <li>**Plataforma AVAMEC:** Um ambiente virtual de aprendizagem do Ministério da Educação que oferece cursos de formação continuada para professores, gestores e outros profissionais da educação, com foco em tecnologias e metodologias inovadoras.</li>
-                    </ul>
-                </div>
+        <main class="content" id="content-2">
+            <h2>Tema 2: A cibercultura e as novas formas de aprender e ensinar</h2>
+            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
+            <p>Cibercultura é o jeito como vivemos, aprendemos e aprendemos na era da internet. É como colaborar no Discord, compartilhar ideias no X ou aprender com tutoriais no YouTube. Na educação, ela cria espaços colaborativos e interativos, onde você pode explorar ideias clicando em links ou debatendo online. <strong>Atividade: Liste três formas de como você usa a internet para aprender fora da escola.</strong></p>
+            
+            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
+            <ul>
+                <li><strong>Cibercultura</strong>: A cultura moldada pela tecnologia digital,como interagir em redes sociais.</li>
+                <li><strong>Aprendizagem em rede</strong>: Aprender conectando-se com outros online, como em fóruns.</li>
+                <li><strong>Hipertexto</strong>: Textos conectados por links, como navegar de uma página da Wikipédia para outra.</li>
+                <li><strong>Educação ubíqua</strong>: Aprender em qualquer lugar, como assistir a uma aula no celular.</li>
+                <li><strong>Interatividade</strong>: Participar ativamente, como responder a um quiz online.</li>
+                <li><strong>Cultura participativa</strong>: Criar e compartilhar conteúdo, como postar um vídeo educativo.</li>
+            </ul>
+            
+            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
+            <p><strong>Benefícios:</strong></p>
+            <ul>
+                <li>Autoria: Criar seus próprios vídeos ou postagens, como um vlog no YouTube.</li>
+                <li>Acesso: Explorar cursos gratuitos de universidades globais.</li>
+                <li>Diversidade: Conhecer ideias de pessoas de diferentes culturas.</li>
+            </ul>
+            
+            <p><strong>Desafios:</strong></p>
+            <ul>
+                <li>Superficialidade: Ler apenas manchetes sem entender o conteúdo.</li>
+                <li>Distrações digitais: Notificações que desviam o foco. Tente aplicativos como Forest para se concentrar.</li>
+                <li>Formação docente: Professores precisam de treinamento para usar tecnologia de forma eficaz.</li>
+            </ul>
+            
+            <p><strong>Aspectos éticos:</strong></p>
+            <ul>
+                <li>Respeitar todos os direitos autorais, como citar fontes de imagens.</li>
+                <li>Promover inclusão digital para terem acesso.</li>
+                <li>Combater fake news verificando informações antes de compartilhar.</li>
+            </ul>
+            
+            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
+            <ul>
+                <li>Criar um podcast no Anchor sobre um tema escolar.</li>
+                <li>Colaborar em um mural digital no Padlet para um projeto.</li>
+                <li>Usar Minecraft Education para construir um modelo de ecossistema.</li>
+                <li>Gamificação com Kahoot para revisar conteúdos.</li>
+            </ul>
+            
+            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
+            <ol>
+                <li><strong>Como a A cibercultura modifica o papel do professor?</strong> Ele vira um guia, ajudando a curar informações.</li>
+                <li><strong>Quais riscos existem na aprendizagem exclusivamente digital?</strong> Superficialidade, exclusão e menos interação pessoal.</li>
+                <li><strong>Como promover a autoria dos alunos?</strong> Criando conteúdos como blogs ou vídeos.</li>
+                <li><strong>Interatividade garante engajamento?</strong> Só se for bem planejado, como um quiz contextualizado.</li>
+                <li><strong>Como lidar com distrações digitais?</strong> Usando estratégias como aplicativos de foco ou horários de estudo.</li>
+                <li><strong>Como plataformas como X ou YouTube ajudam a aprender?</strong> Explore um tópico no X e resuma um post útil.</li>
+            </ol>
+            
+            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
+            <ul>
+                <li>LÉVY, Pierre. <em>Cibercultura</em> (1999) – Um guia para entender a cultura digital.</li>
+                <li>SANTAELLA, Lucia. <em>Cibercultura</em> (2003) – Explora como a internet muda para a sociedade.</li>
+                <li>PRETTO, Nelson. <em>Educação e cibercultura</em> (2005) – Foca na educação na era digital.</li>
+                <li><a href="https://educapes.capes.gov.br/handle/capes/972599?mode=full" target="_blank">Artigo: Cibercultura e Educação</a> – Discutir impactos e desafios.</li>
+                <li><a href="https://www.ted.com/talks" target="_blank">TED Talks sobre cultura digital</a> – Vídeos curtos e inspiradores.</li>
+            </ul>
+        </main>
 
-                <div class="section-title"><i class="fas fa-question-circle"></i>Perguntas com respostas</div>
-                <div class="questions-block">
-                    <ul>
-                        <li>Qual é o papel das políticas públicas na promoção da equidade? **O papel das políticas públicas é garantir que o acesso à tecnologia e à educação de qualidade seja um direito para todos, e não um privilégio. Isso se traduz em investimentos em infraestrutura em áreas de baixa renda, distribuição de equipamentos e programas de capacitação para professores de escolas públicas, reduzindo a lacuna entre o ensino privado e o público.**</li>
-                        <li>Quais os principais obstáculos na implementação de políticas públicas para TDICs? **Os obstáculos são diversos. Incluem a falta de financiamento adequado, a burocracia, a falta de planejamento a longo prazo e a descontinuidade de projetos a cada mudança de governo. A falta de articulação entre os diferentes entes federativos e a ausência de um plano nacional integrado também dificultam a implementação em grande escala.**</li>
-                        <li>Como avaliar a eficácia de uma política pública de tecnologia na educação? **A avaliação exige a definição de indicadores claros e mensuráveis, como o número de escolas conectadas, a participação de professores em cursos de formação, o uso efetivo das ferramentas em sala de aula e, principalmente, a melhoria no desempenho dos alunos. É crucial também ouvir a comunidade escolar (professores, alunos e pais) para entender o impacto real das políticas no dia a dia.**</li>
-                        <li>Quem deve participar da formulação dessas políticas? **A formulação das políticas deve ser um processo democrático e participativo, envolvendo não apenas gestores públicos, mas também a comunidade escolar. Professores, alunos, pais, pesquisadores e especialistas em tecnologia e educação devem ser consultados para garantir que as políticas atendam às necessidades reais e sejam viáveis de implementação.**</li>
-                        <li>A diversidade regional do Brasil é um fator relevante para essas políticas? **Sim, é um fator crucial. O Brasil é um país de dimensões continentais, com realidades muito distintas em termos de infraestrutura, cultura e necessidades educacionais. As políticas devem ser flexíveis e adaptáveis, permitindo que as escolas e as redes de ensino locais ajustem os programas e os recursos de acordo com suas particularidades, garantindo que o investimento seja relevante e eficaz para cada região.**</li>
-                    </ul>
-                </div>
+        <main class="content" id="content-3">
+            <h2>Tema 3: As TDICs e os processos de ensino-aprendizagem</h2>
+            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
+            <p>TDICs (Tecnologias Digitais de Informação e Comunicação) são como ferramentas em uma caixa de um professor: Zoom, Google Forms ou aplicativos que tornam o aprendizado mais interativo. Eles ampliam o acesso ao conhecimento, personalizam aulas e incentivam a participação, mas precisam de planejamento para funcionar bem. <strong>Atividade: Liste dois aplicativos que você usa para estudar e como eles ajudam.</strong></p>
+            
+            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
+            <ul>
+                <li><strong>TDICs</strong>: Ferramentas digitais, como apps e plataformas, que apoiam a educação.</li>
+                <li><strong>Ensino híbrido</strong>: Mistura aulas online (como vídeos) com presenciais (como debates).</li>
+                <li><strong>AVA</strong>: Ambientes Virtuais de Aprendizagem, como Moodle, onde você acessa materiais.</li>
+                <li><strong>Personalização</strong>: Ajustar o ensino ao seu ritmo, como quizzes adaptativos.</li>
+                <li><strong>Aprendizagem colaborativa</strong>: Trabalhar em grupo, como em um Google Doc compartilhado.</li>
+                <li><strong>Feedback automatizado</strong>: Respostas instantâneas, como em um teste online.</li>
+            </ul>
+            
+            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
+            <p><strong>Benefícios:</strong></p>
+            <ul>
+                <li>Acesso a recursos como cursos online gratuitos.</li>
+                <li>Autonomia para estudar no seu tempo.</li>
+                <li>Formatos variados, como vídeos e jogos educativos.</li>
+            </ul>
+            
+            <p><strong>Desafios:</strong></p>
+            <ul>
+                <li>Formação docente: Professores precisam aprender a usar TDICs.</li>
+                <li>Dependência tecnológica: E você tem um cair da internet? As escolas precisam de planos offline.</li>
+                <li>Integração curricular: Usar tecnologia com propósito, não só por usar.</li>
+            </ul>
+            
+            <p><strong>Aspectos éticos:</strong></p>
+            <ul>
+                <li>Proteger dados pessoais em plataformas como Google Classroom.</li>
+                <li>Garantir equidade para todos terem acesso à tecnologia.</li>
+                <li>Usar TDICs de forma significativa, homologada aos objetivos de aprendizado.</li>
+            </ul>
+            
+            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
+            <ul>
+                <li>Simuladores como PhET para visualizar conceitos de física.</li>
+                <li>Plataformas como Khan Academy para aprender no seu ritmo.</li>
+                <li>Usar Duolingo para praticar idiomas.</li>
+                <li>Criar flashcards no Quizlet para estudar biologia.</li>
+            </ul>
+            
+            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
+            <ol>
+                <li><strong>TDICs melhoram a aprendizagem por si só?</strong> Não, precisa de um professor que planeje bem.</li>
+                <li><strong>Como garantir a inclusão?</strong> Com políticas públicas e ferramentas acessíveis.</li>
+                <li><strong>Qual o papel do professor?</strong> Criar experiências de aprendizagem, como um designer.</li>
+                <li><strong>Como evitar o uso superficial?</strong> Com formação e planejamento cuidadoso.</li>
+                <li><strong>TDICs substituem o ensino presencial?</strong> Não,complementam com mais opções.</li>
+                <li><strong>Como os TDICs ajudam você a aprender no seu ritmo?</strong> Faça uma lição na Khan Academy e note como ela se ajusta ao seu progresso.</li>
+            </ol>
+            
+            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
+            <ul>
+                <li>MORAN, José. <em>Mudando a educação com metodologias ativas</em> (2018) – Ideias para aulas dinâmicas.</li>
+                <li>BACICH, Lilian; MORAN, José; TREVISANI, Fernando. <em>Metodologias ativas para uma educação inovadora</em> (2015) – Guia prático para professores.</li>
+                <li>VALENTE, José Armando. <em>Tecnologia na escola: o que fazer?</em> (2002) – Reflexões sobre tecnologia na educação.</li>
+                <li><a href="https://www.researchgate.net/publication/374835111_TDIC_E_EDUCACAO_desafios_e_possibilidades_na_pratica_pedagogica" target="_blank">Artigo: TDIC e Educação</a> – Explora desafios e soluções.</li>
+                <li><a href="https://periodicos.newsciencepubl.com/LEV/article/download/6648/9103/26069" target="_blank">Artigo: Ensino híbrido</a> – Foca na personalização do ensino.</li>
+            </ul>
+        </main>
 
-                <div class="section-title"><i class="fas fa-book"></i>Referências sugeridas</div>
-                <div class="references">
-                    <ul>
-                        <li>CASTELLS, Manuel. *A sociedade em rede*. São Paulo: Paz e Terra, 1999.</li>
-                        <li>MEC. *Educação Conectada*.</li>
-                        <li><a href="https://www.upf.br/_uploads/Conteudo/senid/2018-artigos-completos/178958.pdf" target="_blank">Educação e tecnologias digitais: políticas públicas em debate</a>.</li>
-                        <li><a href="https://monografias.ufma.br/jspui/bitstream/123456789/8777/1/RAQUEL%20AGUIAR%20DO%20NASCIMENTO.pdf" target="_blank">Políticas públicas para inclusão digital na educação básica</a>.</li>
-                    </ul>
-                </div>
-                <div class="close-button-container">
-                    <button class="close-button">Fechar Tema</button>
-                </div>
-            </div>
-        </div>
+        <main class="content" id="content-4">
+            <h2>Tema 4: Metodologias ativas e tecnologias digitais de informação e comunicação</h2>
+            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
+            <p>Metodologias ativas colocam você no comando do seu aprendizado. Em vez de apenas ouvir, você cria projetos, como um site para um evento escolar, usando ferramentas como Canva ou Google Sites. Combinadas com TDICs, essas metodologias tornam o aprendizado mais personalizado e colaborativo. <strong>Atividade: Pense em um problema na sua escola e como um projeto digital poderia resolvê-lo.</strong></p>
+            
+            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
+            <ul>
+                <li><strong>Metodologias ativas</strong>: Estratégias onde você participa inovadora, como resolver um problema real.</li>
+                <li><strong>Aprendizagem baseada em problemas (ABP)</strong>: Resolver questões práticas, como planejar um evento sustentável.</li>
+                <li><strong>Sala de aula invertida</strong>: Estudar em casa (ex.: vídeo sobre ecologia) e debatedor em aula.</li>
+                <li><strong>Gamificação</strong>: Usar jogos, como Kahoot, para tornar o estudo divertido.</li>
+                <li><strong>Ensino híbrido</strong>: Misturar aulas presenciais e online.</li>
+                <li><strong>Design instrucional</strong>:Planejar aulas como um arquiteto projeta uma casa.</li>
+            </ul>
+            
+            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
+            <p><strong>Benefícios:</strong> Mais engajamento, autonomia e habilidades como trabalho em equipe.</p>
+            <p><strong>Desafios:</strong> Professores temem perder controle; os alunos podem resistir a métodos novos; avaliar progresso é complexo.</p>
+            <p><strong>Ética:</strong> Garantir equidade, respeito diferenças e usar tech com propósito.</p>
+            
+            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
+            <ul>
+                <li>Criar um mural interdisciplinar no Padlet.</li>
+                <li>Usar Nearpod para aulas interativas de ciências.</li>
+                <li>Gamificação com Matific para aprender matemática.</li>
+                <li>Sala invertida com vídeos e quizzes no Google Forms.</li>
+            </ul>
+            
+            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
+            <ol>
+                <li>O aluno torna-se protagonista, liderando projetos.</li>
+                <li>TDICs potencializam, mas não são indispensáveis.</li>
+                <li>O professor é um mediador e inovador.</li>
+                <li>A avaliação deve ser contínua, usando portfólios e rubricas.</li>
+                <li>Superficialidade é evitada com planejamento.</li>
+                <li><strong>Qual metodologia ativa você gostaria de experimentar?</strong> Crie um mini-projeto com Padlet e explique sua ideia.</li>
+            </ol>
+            
+            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
+            <ul>
+                <li>BACICH, Lilian; MORAN, José; TREVISANI, Fernando. <em>Metodologias ativas para uma educação inovadora</em> (2015) – Guia prático para aulas ativas.</li>
+                <li>MORAN, José. <em>A educação que desejamos</em> (2007) – Visão de uma educação dinâmica.</li>
+                <li><a href="https://educacaopublica.cecierj.edu.br/artigos/25/33/a-utilizacao-das-tdic-e-metodologias-ativas-no-ensino-medio" target="_blank">Artigo: TDIC e metodologias ativas</a> – Exemplos para o ensino médio.</li>
+                <li><a href="https://revistavalore.emnuvens.com.br/valore/article/view/1341" target="_blank">Artigo: Gamificação</a> – Como jogos apoiam o aprendizado.</li>
+            </ul>
+        </main>
 
-        <div class="topic">
-            <div class="topic-header">
-                <h3><i class="fas fa-chalkboard-teacher"></i>Tema 6: Formação de professores e utilização das TDICs em sala de aula</h3>
-                <span class="arrow"><i class="fas fa-chevron-right"></i></span>
-            </div>
-            <div class="topic-content">
-                <div class="section-title"><i class="fas fa-compass"></i>Introdução ao tema</div>
-                <p>A presença de tecnologias na escola não garante, por si só, uma educação inovadora. O principal motor da mudança é o professor, e a **formação docente** é o pilar que sustenta toda a transformação digital. Mais do que simplesmente dominar as ferramentas, os educadores precisam compreender como integrá-las de forma crítica, ética e pedagógica aos processos de ensino-aprendizagem. Uma formação eficaz capacita o professor a ser um mediador do conhecimento, um criador de experiências e um facilitador do protagonismo dos alunos, o que é fundamental para a construção de uma cultura digital escolar sólida.</p>
+        <main class="content" id="content-5">
+            <h2>Tema 5:Políticas públicas para a inserção das tecnologias digitais de informação e comunicação na educação</h2>
+            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
+            <p>Políticas públicas são como mapas do governo para tecnologia levar às escolas, como Wi-Fi gratuito ou laptops para estudantes. Elas buscam tornar a educação mais justa e inovadora, mas precisam superar obstáculos como falta de recursos. <strong>Atividade: Executar uma política educacional na sua região e como ela impacta sua escola.</strong></p>
+            
+            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
+            <ul>
+                <li><strong>Política pública educacional</strong>: Planos do governo para todos melhorar a educação.</li>
+                <li><strong>Inclusão digital</strong>: Garantir que, mesmo em áreas rurais, tenham internet.</li>
+                <li><strong>Infraestrutura tecnológica</strong>: Equipar escolas com computadores e Wi-Fi.</li>
+                <li><strong>Formação continuada</strong>: Treinamento de professores para usar TDICs.</li>
+                <li><strong>Conteúdos digitais educacionais</strong>: Materiais como e-books ou vídeos educativos.</li>
+                <li><strong>Avaliação e monitoramento</strong>: Verifique se as políticas estão funcionando.</li>
+            </ul>
+            
+            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
+            <p><strong>Benefícios:</strong> Reduzir desigualdades, promover inovação e cidadania digital.</p>
+            <p><strong>Desafios:</strong> Falta de verbo, descontinuidade de programas e resistência escolar.</p>
+            <p><strong>Ética:</strong> Garantir acesso universal, normas regionais e ser transparente.</p>
+            
+            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
+            <ul>
+                <li>Programa Educação Conectada para Wi-Fi em escolas.</li>
+                <li>ProInfo Integrado distribuindo tablets.</li>
+                <li>Plataforma AVAMEC com cursos gratuitos.</li>
+                <li>PNLD Digital para livros digitais.</li>
+            </ul>
+            
+            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
+            <ol>
+                <li>Políticas públicas promovem equidade e qualidade.</li>
+                <li>Obstáculos incluem falta de financiamento e proporção.</li>
+                <li>Avaliação exige indicadores claros e participação da comunidade.</li>
+                <li>A comunidade escolar deve ajudar a planejar políticas.</li>
+                <li>Diversidade regional exige políticas flexíveis.</li>
+                <li><strong>Como uma política poderia melhorar sua escola?</strong> Encontrei uma iniciativa local e compartilhe seu impacto.</li>
+            </ol>
+            
+            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
+            <ul>
+                <li>CASTELLS, Manuel. <em>A sociedade em rede</em> (1999) – Sobre redes e tecnologia.</li>
+                <li>MEC. <em>Educação Conectada</em> – Detalhes do programa brasileiro.</li>
+                <li><a href="https://www.upf.br/_Uploads/Conteudo/senid/2018-artigos-completos/178958.pdf" target="_blank">Artigo: Políticas públicas em debate</a> – Análise de iniciativas educacionais.</li>
+                <li><a href="https://monografias.ufma.br/jspui/bitstream/123456789/8777/1/RAQUEL%20AGUIAR%20DO%20NASCIMENTO.pdf" target="_blank">Artigo: Inclusão digital</a> – Foco na educação básica.</li>
+            </ul>
+        </main>
 
-                <div class="section-title"><i class="fas fa-brain"></i>Conceitos chave</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Competência digital docente:** O conjunto de conhecimentos, habilidades e atitudes que um professor precisa para utilizar as TDICs de forma eficaz em sua prática. Isso inclui desde a capacidade de usar softwares e plataformas até a habilidade de criar aulas inovadoras e avaliar o aprendizado em ambientes digitais.</li>
-                        <li>**Formação continuada:** O processo de aprendizagem e desenvolvimento profissional que ocorre após a formação inicial. Para as TDICs, é um ciclo constante de atualização, pois as tecnologias e as metodologias evoluem rapidamente.</li>
-                        <li>**Integração pedagógica das TDICs:** A utilização das tecnologias com um propósito claro e alinhado aos objetivos de aprendizagem, em vez de simplesmente usá-las para "modernizar" a aula. É a diferença entre usar o YouTube para mostrar um vídeo e usá-lo para que os alunos criem seus próprios documentários.</li>
-                        <li>**Letramento digital:** A capacidade de ler, escrever e interpretar não apenas textos, mas também vídeos, imagens e hipertextos. O letramento digital também envolve a compreensão crítica das lógicas das redes sociais e do consumo de informação.</li>
-                        <li>**Autonomia docente:** A capacidade do professor de tomar decisões pedagógicas, de inovar e de adaptar o currículo com base nas necessidades de seus alunos e na sua própria criatividade. A formação em TDICs deve fortalecer essa autonomia, e não burocratizar o processo.</li>
-                        <li>**Cultura digital escolar:** Um ambiente onde a tecnologia é parte integrante da rotina da escola, do planejamento à avaliação. É um ecossistema que valoriza a inovação, a colaboração e o uso ético das ferramentas digitais.</li>
-                    </ul>
-                </div>
+        <main class="content" id="content-6">
+            <h2>Tema 6: Formação de professores e utilização das TDICs em sala de aula</h2>
+            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
+            <p>Professores são como exploradores em um mundo digital, aprendendo a usar ferramentas como Zoom ou Google Classroom para tornar aulas mais dinâmicas. A formação contínua é essencial para que eles integrem TDICs de forma crítica e eficaz. <strong>Atividade: Entreviste um professor sobre como ele usa tecnologia na sala de aula.</strong></p>
+            
+            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
+            <ul>
+                <li><strong>Competência digital docente</strong>: Habilidades como criar quizzes no Quizizz.</li>
+                <li><strong>Formação continuada</strong>: Treinamento constante para acompanhar novas tecnologias.</li>
+                <li><strong>Integração pedagógica das TDICs</strong>: Usar tech com propósito educacional.</li>
+                <li><strong>Letramento digital</strong>: Saber navegar e avaliar informações online.</li>
+                <li><strong>Autonomia docente</strong>: Professores decidindo como usar TDICs.</li>
+                <li><strong>Cultura digital escolar</strong>: Uma escola que abraça a tecnologia.</li>
+            </ul>
+            
+            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
+            <p><strong>Benefícios:</strong> Aulas mais dinâmicas, engajamento e inovação, como passeios virtuais.</p>
+            <p><strong>Desafios:</strong> Professores se sentem inseguros, falta apoio e formação inicial é fraca.</p>
+            <p><strong>Ética:</strong> Uso responsável, valorizar criações dos alunos e promover a inclusão.</p>
+            
+            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
+            <ul>
+                <li>Cursos gratuitos na AVAMEC para professores.</li>
+                <li>Usar Microsoft Teams para planejar aulas colaborativamente.</li>
+                <li>Comunidades no Edmodo para trocar ideias.</li>
+                <li>Planejamento com Google Docs em grupos.</li>
+            </ul>
+            
+            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
+            <ol>
+                <li>Formação contínua é vital por causa da evolução rápida da tecnologia.</li>
+                <li>Superficialidade é evitada com planejamento intencional.</li>
+                <li>Competências incluem curadoria, design e segurança digital.</li>
+                <li>Obstáculos: falta de infraestrutura e proteção de trabalho.</li>
+                <li>Cultura digital exige exigência e redução dos professores.</li>
+                <li><strong>Como os professores podem se manter atualizações?</strong> Explore um curso na AVAMEC e resuma uma dica útil.</li>
+            </ol>
+            
+            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
+            <ul>
+                <li>VALENTE, José Armando. <em>Ensino e aprendizagem com tecnologias</em> (2014) – Foco em práticas com tecnologia.</li>
+                <li>MORAN, José. <em>A educação que desejamos</em> (2007) – Visão inspirada para professores.</li>
+                <li><a href="https://www.scielo.br/j/tl/a/phLSyQY6WxDcNX9pSWGT5CF/?format=pdf" target="_blank">Artigo: Competência digital docente</a> – Explora habilidades digitais.</li>
+                <li><a href="https://www.e-publicacoes.uerj.br/re-doc/article/download/65485/pdf/0" target="_blank">Artigo: Formação de professores e TDICs</a> – Estratégias práticas.</li>
+            </ul>
+        </main>
 
-                <div class="section-title"><i class="fas fa-balance-scale"></i>Impactos e desafios</div>
-                <div class="content-block">
-                    <p>**Benefícios:** A formação de professores em TDICs leva à **ampliação das possibilidades didáticas**, permitindo que o educador utilize uma gama maior de recursos para tornar as aulas mais interessantes. Isso resulta em um maior **engajamento dos alunos** e na adoção de **práticas inovadoras** que preparam os estudantes para os desafios do futuro.</p>
-                    <p>**Desafios:** Um dos maiores desafios é a **formação inicial deficiente**, que muitas vezes não prepara os futuros professores para o uso pedagógico das tecnologias. A **falta de apoio institucional**, como tempo e recursos para a formação, também é um obstáculo. Por fim, a **insegurança docente**, gerada pelo medo de errar ou de ser "superado" pelos alunos, pode ser uma barreira significativa.</p>
-                    <p>**Ética:** A formação deve enfatizar o **uso responsável** das tecnologias, incluindo a proteção de dados e a segurança online. É crucial valorizar a **autoria**, tanto do professor quanto dos alunos, e garantir que a formação promova a **inclusão** de todos, independentemente de seu nível de familiaridade com a tecnologia.</p>
-                </div>
+        <main class="content" id="content-7">
+            <h2>Tema 7: Utilização das tecnologias digitais de informação e comunicação como ferramentas de ajuda à aprendizagem</h2>
+            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
+            <p>TDICs são como amigos de estudo: apps como Notion organizam suas tarefas, e plataformas como Code.org ensinam habilidades como programar. Elas o aprendizado mais interativo, personalizado e acessível, mas precisam ser usadas com cuidado. <strong>Atividade: Escolha um aplicativo educacional e explique como ele ajuda seus estudos.</strong></p>
+            
+            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
+            <ul>
+                <li><strong>Ferramentas digitais de apoio</strong>: Apps como Quizlet que ajudam a estudar.</li>
+                <li><strong>Aprendizagem personalizada</strong>: Aulas ajustadas ao seu ritmo, como Khan Academy.</li>
+                <li><strong>Multimodalidade</strong>: Aprender com vídeos, textos e jogos.</li>
+                <li><strong>Feedback em tempo real</strong>: Respostas instantâneas em quizzes online.</li>
+                <li><strong>Aprendizagem móvel</strong>: Estudar em qualquer lugar, como no ônibus com Duolingo.</li>
+                <li><strong>Curadoria digital</strong>: Escolher recursos confiáveis, como sites acadêmicos.</li>
+            </ul>
+            
+            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
+            <p><strong>Benefícios:</strong></p>
+            <ul>
+                <li>Autonomia: Estude quando é como quiser, pausando vídeos ou revisando.</li>
+                <li>Engajamento: Jogos educativos tornam o estudo divertido.</li>
+                <li>Atende diferentes estilos, como vídeos para visuais ou podcasts para auditivos.</li>
+            </ul>
+            
+            <p><strong>Desafios:</strong></p>
+            <ul>
+                <li>Sobrecarga: Muitos aplicativos podem confundir. Use um como Todoist para organizar.</li>
+                <li>Acesso: Nem todos têm smartphones ou internet estável.</li>
+                <li>Formação docente: Os professores precisam saber escolher ferramentas certas.</li>
+            </ul>
+            
+            <p><strong>Aspectos éticos:</strong></p>
+            <ul>
+                <li>Proteger sua privacidade em aplicativos educacionais.</li>
+                <li>Evitar depender apenas de tecnologia; equilíbrio é essencial.</li>
+                <li>Usar ferramentas homologadas aos objetivos de aprendizado.</li>
+            </ul>
+            
+            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
+            <ul>
+                <li>Google Forms para testes formativos.</li>
+                <li>Notion para organizar projetos escolares.</li>
+                <li>Simuladores como GeoGebra para visualizar matemática.</li>
+                <li>Quizizz para revisar conteúdos de forma divertida.</li>
+            </ul>
+            
+            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
+            <ol>
+                <li><strong>As TDICs substituem o professor?</strong> Não, ampliam possibilidades, mas o professor é essencial.</li>
+                <li><strong>Como escolher ferramentas certas?</strong> Considere seus objetivos e infraestrutura da escola.</li>
+                <li><strong>Quais riscos existem no uso excessivo?</strong> Superficialidade, dependência e estresse digital.</li>
+                <li><strong>Como apoiar alunos com dificuldades?</strong> Com ferramentas acessíveis e feedback personalizado.</li>
+                <li><strong>O uso de tecnologias garante qualidade?</strong> Não, depende de planejamento e engajamento.</li>
+                <li><strong>Qual TDIC ajuda mais seus estudos?</strong> Teste Quizizz e explique como ele melhorou seu aprendizado.</li>
+            </ol>
+            
+            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
+            <ul>
+                <li><a href="https://www.scielo.br/j/pee/a/NwwLwRTRTdBDmXWW4Nq7ByS/?format=pdf" target="_blank">Artigo: Tecnologias digitais como instrumentos mediadores</a> – Como TDICs apoiam o aprendizado.</li>
+                <li><a href="https://revista.uemg.br/gtic-malestar/article/download/7859/4866/31648" target="_blank">Artigo: TDICs e aprendizagem ubíqua</a> – Foco em aprender em qualquer lugar.</li>
+            </ul>
+        </main>
 
-                <div class="section-title"><i class="fas fa-school"></i>Exemplos práticos</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Cursos na AVAMEC:** Plataformas como a AVAMEC, do MEC, oferecem cursos online e gratuitos para professores, que abordam desde o uso de ferramentas básicas até a implementação de metodologias ativas.</li>
-                        <li>**Comunidades de prática online:** Grupos de professores em redes sociais ou fóruns que compartilham experiências, tiram dúvidas e colaboram em projetos. Essa troca informal e contínua é uma forma poderosa de formação.</li>
-                        <li>**Planejamento colaborativo com Google Docs:** Professores de diferentes disciplinas podem planejar projetos interdisciplinares em tempo real, utilizando ferramentas colaborativas como o Google Docs. Isso promove a troca de ideias e o desenvolvimento profissional conjunto.</li>
-                    </ul>
-                </div>
+        <main class="content" id="content-8">
+            <h2>Tema 8: Práticas pedagógicas mediadas por tecnologia</h2>
+            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
+            <p>Imagine uma aula onde você faz brainstorming no Jamboard, compartilhando ideias em tempo real. Práticas pedagógicas mediadas por tecnologia usam ferramentas digitais com propósito, repensando como professores ensinam e os alunos aprendem. <strong>Atividade: Propor uma aula usando uma ferramenta digital como Jamboard.</strong></p>
+            
+            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
+            <ul>
+                <li><strong>Mediação tecnológica</strong>: Usar tecnologia para facilitar o aprendizado, como um quadro digital.</li>
+                <li><strong>Ambiente híbrido de aprendizagem</strong>: Misturar online e presencial, como debates virtuais.</li>
+                <li><strong>Práticas pedagógicas inovadoras</strong>: Métodos criativos, como projetos colaborativos online.</li>
+                <li><strong>Interação digital</strong>: Participar ativamente, como nos fóruns do Moodle.</li>
+                <li><strong>Avaliação mediada por tecnologia</strong>: Usar quizzes online para feedback.</li>
+                <li><strong>Cocriação de conhecimento</strong>: Criar um wiki em grupo no Google Docs.</li>
+            </ul>
+            
+            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
+            <p><strong>Benefícios:</strong></p>
+            <ul>
+                <li>Aprender em qualquer lugar, como em casa ou na escola.</li>
+                <li>Autoria: Criar portfólios digitais para mostrar seu trabalho.</li>
+                <li>Engajamento com ferramentas como Kahoot ou Jamboard.</li>
+            </ul>
+            
+            <p><strong>Desafios:</strong></p>
+            <ul>
+                <li>Integração: Tech deve se conectar ao currículo, não ser apenas decoração.</li>
+                <li>Formação: Professores precisam de treino para inovar.</li>
+                <li>Uso superficial: Evitar tech só para "parecer moderno".</li>
+            </ul>
+            
+            <p><strong>Aspectos éticos:</strong></p>
+            <ul>
+                <li>Garantir acessibilidade para todos os sistemas alunos.</li>
+                <li>Proteger dados em plataformas digitais.</li>
+                <li>Valorizar diferentes formas de </li>
+            </ul>
+            
+            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
+            <ul>
+                <li>Jornal escolar digital com Canva e Google Sites.</li>
+                <li>Fóruns de discussão no Moodle para debater temas.</li>
+                <li>Portfólio digital no Seesaw para mostrar projetos.</li>
+                <li>Brainstorming colaborativo no Jamboard.</li>
+            </ul>
+            
+            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
+            <ol>
+                <li><strong>O que diferencia uma prática pedagógica de um uso técnico?</strong> O propósito educacional e planejamento.</li>
+                <li><strong>Como garantir a inclusão?</strong> Adaptando e ouvindo recursos os alunos.</li>
+                <li><strong>Quais competências docentes são ensinadas?</strong> Planejamento, domínio digital e compreensão.</li>
+                <li><strong>Como avaliar essas práticas?</strong> Com rubricas, portfólios e respostas.</li>
+                <li><strong>Essas práticas substituem o ensino tradicional?</strong> Não, complementam e enriquecem.</li>
+                <li><strong>Como a tecnologia pode tornar aulas mais interativas?</strong> Experimente o Jamboard e descreva seu impacto.</li>
+            </ol>
+            
+            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
+            <ul>
+                <li><a href="https://periodicos.ufes.br/kirikere/article/view/46326" target="_blank">Artigo:TDICs e práticas pedagógicas</a> – Como usar tecnologia de forma significativa.</li>
+                <li><a href="https://www.researchgate.net/publication/374835111_TDIC_E_EDUCACAO_desafios_e_possibilidades_na_pratica_pedagogica" target="_blank">Artigo: Desafios e possibilidades</a> – Reflexões sobre práticas com TDICs.</li>
+            </ul>
+        </main>
 
-                <div class="section-title"><i class="fas fa-question-circle"></i>Perguntas com respostas</div>
-                <div class="questions-block">
-                    <ul>
-                        <li>Por que a formação contínua é essencial na era digital? **A formação contínua é essencial porque a tecnologia evolui em um ritmo muito acelerado. As ferramentas e metodologias de hoje podem se tornar obsoletas amanhã. O professor precisa estar em constante atualização para acompanhar essas mudanças e para garantir que sua prática pedagógica continue relevante e eficaz para os alunos.**</li>
-                        <li>Como evitar o uso superficial das TDICs? **A superficialidade é evitada com a intencionalidade pedagógica. Em vez de usar uma ferramenta apenas por ser "legal", o professor deve ter um objetivo claro de aprendizagem. A formação deve capacitar o educador a fazer essa conexão, transformando uma simples ferramenta em um recurso poderoso para o desenvolvimento de competências.**</li>
-                        <li>Quais competências os professores precisam desenvolver para usar as TDICs? **Além de dominar as ferramentas, os professores precisam desenvolver habilidades de planejamento, mediação, curadoria de conteúdo e design de experiências de aprendizagem. O professor precisa ser um facilitador do conhecimento, um guia que ajuda o aluno a navegar pelo mundo digital de forma crítica e criativa.**</li>
-                        <li>Quais são os principais obstáculos para a formação de professores? **Os obstáculos são variados. A falta de tempo no planejamento, a sobrecarga de trabalho, a escassez de recursos financeiros e a falta de apoio da gestão escolar são barreiras comuns. Superá-los exige uma mudança cultural na escola, que deve valorizar e priorizar o desenvolvimento profissional.**</li>
-                        <li>O que é cultura digital escolar e como a formação contribui para ela? **A cultura digital escolar é um ecossistema onde a tecnologia é integrada organicamente, não apenas em ferramentas, mas em valores e práticas. A formação de professores é crucial para a construção dessa cultura, pois empodera os educadores a se tornarem agentes de mudança, promovendo a inovação de baixo para cima e envolvendo toda a comunidade escolar no processo.**</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-book"></i>Referências sugeridas</div>
-                <div class="references">
-                    <ul>
-                        <li>VALENTE, José Armando. *Ensino e aprendizagem com tecnologias*. UNICAMP, 2014.</li>
-                        <li>MORAN, José. *A educação que desejamos*. Papirus, 2007.</li>
-                        <li><a href="https://www.scielo.br/j/tl/a/phLSyQY6WxDcNX9pSWGT5CF/?format=pdf" target="_blank">No rastro dos conceitos de competência digital docente</a>.</li>
-                        <li><a href="https://www.e-publicacoes.uerj.br/re-doc/article/download/65485/pdf/0" target="_blank">Formação de professores e TDICs</a>.</li>
-                    </ul>
-                </div>
-                <div class="close-button-container">
-                    <button class="close-button">Fechar Tema</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="topic">
-            <div class="topic-header">
-                <h3><i class="fas fa-toolbox"></i>Tema 7: Utilização das tecnologias digitais de informação e comunicação como ferramentas de auxílio à aprendizagem</h3>
-                <span class="arrow"><i class="fas fa-chevron-right"></i></span>
-            </div>
-            <div class="topic-content">
-                <div class="section-title"><i class="fas fa-compass"></i>Introdução ao tema</div>
-                <p>As Tecnologias Digitais de Informação e Comunicação (TDICs) têm se consolidado como ferramentas poderosas para apoiar a aprendizagem em diferentes níveis e modalidades educacionais. Elas não devem ser vistas como um fim em si mesmas, mas como **instrumentos que ampliam as possibilidades de ensino**, permitindo a diversificação de estratégias didáticas, o acesso a conteúdos multimídia, a personalização do ensino e o desenvolvimento de competências essenciais para o século XXI. A escolha e o uso dessas ferramentas, no entanto, devem ser guiados por um planejamento pedagógico claro e intencional.</p>
-
-                <div class="section-title"><i class="fas fa-brain"></i>Conceitos chave</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Ferramentas digitais de apoio:** Softwares, aplicativos, plataformas e dispositivos que auxiliam no processo de ensino-aprendizagem. Isso inclui desde editores de texto colaborativos até simuladores de física ou plataformas de criação de vídeos.</li>
-                        <li>**Aprendizagem personalizada:** A adaptação do ritmo, conteúdo e estilo de ensino às necessidades e preferências individuais de cada aluno. A tecnologia facilita a personalização por meio de algoritmos que analisam o desempenho e sugerem atividades de acordo com o nível de dificuldade do estudante.</li>
-                        <li>**Multimodalidade:** O uso de diferentes formas de linguagem e mídia para apresentar um mesmo conteúdo, como vídeos, infográficos, áudios e textos. A multimodalidade torna o aprendizado mais acessível e engajador, pois atende a diversos estilos de aprendizagem.</li>
-                        <li>**Feedback em tempo real:** A capacidade de um sistema digital fornecer retorno imediato sobre o desempenho de um aluno, como em quizzes online ou plataformas de exercícios. Esse feedback instantâneo permite que o estudante identifique e corrija erros rapidamente.</li>
-                        <li>**Aprendizagem móvel (mobile learning):** A utilização de dispositivos móveis (smartphones, tablets) para o aprendizado, permitindo que a educação ocorra em qualquer lugar e a qualquer momento.</li>
-                        <li>**Curadoria digital:** A habilidade de selecionar, organizar e compartilhar conteúdo digital de forma relevante e confiável. É uma competência essencial para professores e alunos, que precisam navegar em um vasto oceano de informações online.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-balance-scale"></i>Impactos e desafios</div>
-                <div class="content-block">
-                    <h4>Benefícios:</h4>
-                    <ul>
-                        <li>**Estímulo à autonomia e à autorregulação dos estudantes:** Ao utilizar ferramentas de organização e pesquisa, os alunos aprendem a gerenciar seu próprio aprendizado, definindo metas e monitorando seu progresso.</li>
-                        <li>**Maior engajamento:** O uso de recursos interativos e multimídia torna o processo de aprendizagem mais dinâmico e atrativo, aumentando o interesse e a motivação dos alunos.</li>
-                        <li>**Atender diferentes estilos de aprendizagem:** As TDICs oferecem uma variedade de recursos (visuais, auditivos, cinestésicos) que podem ser adaptados para atender a diferentes perfis de estudantes, tornando o ensino mais inclusivo.</li>
-                    </ul>
-                    <h4>Desafios:</h4>
-                    <ul>
-                        <li>**Sobrecarga de informações e distrações:** A facilidade de acesso à internet pode levar à "infoxicação" e à distração, prejudicando o foco e a concentração.</li>
-                        <li>**Dificuldade de acesso:** A falta de infraestrutura e equipamentos em contextos de vulnerabilidade social continua sendo uma barreira significativa para o uso eficaz das tecnologias.</li>
-                        <li>**Necessidade de formação docente:** O uso de novas ferramentas exige que os professores recebam treinamento adequado não apenas sobre o funcionamento, mas sobre a melhor forma de integrá-las à prática pedagógica.</li>
-                    </ul>
-                    <h4>Aspectos éticos e pedagógicos:</h4>
-                    <ul>
-                        <li>**Proteção de dados e privacidade:** É fundamental garantir que as plataformas e aplicativos utilizados protejam os dados pessoais de alunos e professores, seguindo as regulamentações de segurança.</li>
-                        <li>**Evitar dependência excessiva:** A escola precisa ensinar o uso consciente da tecnologia, evitando que os alunos desenvolvam uma dependência excessiva e percam habilidades essenciais, como a comunicação face a face.</li>
-                        <li>**Alinhamento aos objetivos educacionais:** As ferramentas devem ser escolhidas com base em seu potencial pedagógico, e não por serem "novidade". O foco deve estar sempre no objetivo de aprendizagem, e não na tecnologia em si.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-school"></i>Exemplos práticos</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Google Forms para avaliação formativa:** O professor pode criar quizzes rápidos para verificar a compreensão de um tema, recebendo um feedback instantâneo sobre o desempenho da turma e identificando quais pontos precisam ser reforçados.</li>
-                        <li>**Notion ou Trello para organização de projetos:** Ferramentas que permitem aos alunos organizar suas tarefas, definir prazos e colaborar em projetos, desenvolvendo competências de gestão e trabalho em equipe.</li>
-                        <li>**Simuladores como GeoGebra e PhET:** Ferramentas interativas que permitem a visualização de conceitos abstratos de matemática, física e química, como a geometria de equações ou a dinâmica de partículas, tornando a aprendizagem mais intuitiva e visual.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-question-circle"></i>Perguntas com respostas</div>
-                <div class="questions-block">
-                    <ul>
-                        <li>As TDICs substituem o professor? **Não. A tecnologia é uma ferramenta poderosa, mas não substitui a mediação humana. O professor é essencial para planejar as atividades, guiar a pesquisa, incentivar o pensamento crítico, promover a colaboração e oferecer o apoio emocional que a tecnologia não pode dar. A TDIC amplia as possibilidades do professor, mas não o substitui.**</li>
-                        <li>Como escolher as ferramentas digitais adequadas? **A escolha deve ser baseada nos objetivos pedagógicos, no perfil dos alunos e na infraestrutura disponível. É importante pesquisar a usabilidade, o custo e o potencial educativo da ferramenta. Uma boa ferramenta é aquela que se integra de forma orgânica ao currículo e ajuda a alcançar uma meta de aprendizagem específica.**</li>
-                        <li>Quais riscos existem no uso excessivo de tecnologias? **O uso excessivo pode levar à superficialidade no aprendizado, à dependência digital e a prejuízos para a saúde mental e física, como a ansiedade e problemas de visão. A escola tem o papel de educar para o uso consciente e equilibrado, promovendo a disciplina digital e o bem-estar dos alunos.**</li>
-                        <li>Como as tecnologias podem apoiar alunos com dificuldades de aprendizagem? **As TDICs oferecem recursos adaptativos, como plataformas que ajustam o nível de dificuldade, ferramentas de acessibilidade para alunos com deficiência (leitores de tela, por exemplo) e a possibilidade de feedback personalizado, permitindo que cada aluno avance em seu próprio ritmo e receba o apoio necessário para superar suas dificuldades.**</li>
-                        <li>O uso de tecnologias garante a qualidade do ensino? **Não. A qualidade do ensino depende da intencionalidade pedagógica, do planejamento e do engajamento do professor e dos alunos. Uma ferramenta tecnológica, por mais sofisticada que seja, só será eficaz se estiver a serviço de um método de ensino bem estruturado e focado no desenvolvimento de competências.**</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-book"></i>Referências sugeridas</div>
-                <div class="references">
-                    <ul>
-                        <li><a href="https://www.scielo.br/j/pee/a/NwwLwRTRTdBDmXWW4Nq7ByS/?format=pdf" target="_blank">Tecnologias digitais como instrumentos mediadores da aprendizagem</a>.</li>
-                        <li><a href="https://revista.uemg.br/gtic-malestar/article/download/7859/4866/31648" target="_blank">TDICs como ferramentas de aprendizagem ubíqua</a>.</li>
-                    </ul>
-                </div>
-                <div class="close-button-container">
-                    <button class="close-button">Fechar Tema</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="topic">
-            <div class="topic-header">
-                <h3><i class="fas fa-laptop-code"></i>Tema 8: Práticas pedagógicas mediadas por tecnologia</h3>
-                <span class="arrow"><i class="fas fa-chevron-right"></i></span>
-            </div>
-            <div class="topic-content">
-                <div class="section-title"><i class="fas fa-compass"></i>Introdução ao tema</div>
-                <p>As práticas pedagógicas mediadas por tecnologia vão além da simples utilização de um computador ou de uma lousa digital. Elas envolvem o uso **intencional e planejado** de recursos digitais para promover a aprendizagem de forma inovadora e significativa. Essas práticas implicam em um repensar do papel do professor, dos métodos de ensino, dos espaços de aprendizagem e dos objetivos educacionais. O foco não é mais o "o quê" se ensina, mas o "como" se ensina, utilizando a tecnologia para criar ambientes de aprendizado mais interativos, colaborativos e relevantes para o mundo contemporâneo.</p>
-
-                <div class="section-title"><i class="fas fa-brain"></i>Conceitos chave</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Mediação tecnológica:** A ação do professor de guiar e orientar os alunos no uso da tecnologia para a construção do conhecimento. É a mediação que transforma uma simples ferramenta em um recurso pedagógico.</li>
-                        <li>**Ambiente híbrido de aprendizagem:** Um espaço de ensino que combina atividades presenciais e online. As práticas pedagógicas inovadoras se adaptam a esse ambiente, utilizando as tecnologias para otimizar o tempo em sala de aula e estender o aprendizado para além dos muros da escola.</li>
-                        <li>**Prática pedagógica inovadora:** Uma abordagem que rompe com o modelo tradicional de ensino, valorizando a participação ativa do aluno, a resolução de problemas, a colaboração e a criatividade, com o apoio de novas tecnologias.</li>
-                        <li>**Interação digital:** A comunicação e a colaboração que ocorrem em ambientes online. As práticas pedagógicas devem incentivar a interação significativa, seja em fóruns de discussão, em projetos colaborativos ou em redes sociais.</li>
-                        <li>**Avaliação mediada por tecnologia:** O uso de ferramentas digitais para avaliar o desempenho dos alunos. Isso inclui desde quizzes online e exercícios adaptativos até a criação de portfólios digitais, que registram o progresso do aluno ao longo do tempo.</li>
-                        <li>**Cocriação de conhecimento:** O processo pelo qual o conhecimento não é mais transmitido, mas construído coletivamente por professores e alunos. As TDICs são ideais para isso, pois facilitam a colaboração e o compartilhamento de ideias em tempo real.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-balance-scale"></i>Impactos e desafios</div>
-                <div class="content-block">
-                    <h4>Benefícios:</h4>
-                    <ul>
-                        <li>**Ampliação dos espaços e tempos de aprendizagem:** A tecnologia permite que o aprendizado não se restrinja à sala de aula, mas ocorra em qualquer lugar e a qualquer momento, por meio de dispositivos móveis.</li>
-                        <li>**Estímulo à autoria e à colaboração:** Ferramentas digitais como blogs, wikis e plataformas de edição de vídeo incentivam os alunos a criar e compartilhar seus próprios conteúdos, promovendo a autoria e o trabalho em equipe.</li>
-                        <li>**Maior engajamento:** O uso de linguagens digitais, como vídeos e jogos, torna o aprendizado mais próximo da realidade dos alunos, aumentando seu interesse e motivação.</li>
-                    </ul>
-                    <h4>Desafios:</h4>
-                    <ul>
-                        <li>**Dificuldade de integração significativa:** Um dos principais desafios é a falta de um planejamento que integre as tecnologias de forma orgânica ao currículo, evitando que elas sejam usadas de forma isolada e superficial.</li>
-                        <li>**Formação docente insuficiente:** A maioria dos professores não foi preparada para o uso pedagógico da tecnologia, o que exige um investimento contínuo em capacitação e apoio.</li>
-                        <li>**Riscos de uso superficial ou tecnicista:** A tecnologia pode ser usada de forma meramente instrumental, sem um objetivo pedagógico claro. Isso transforma a aula em uma demonstração de ferramentas, e não em uma experiência de aprendizagem.</li>
-                    </ul>
-                    <h4>Aspectos éticos e pedagógicos:</h4>
-                    <ul>
-                        <li>**Garantia de acessibilidade e inclusão:** É crucial garantir que as práticas pedagógicas mediadas por tecnologia sejam acessíveis a todos os alunos, independentemente de suas habilidades ou deficiências.</li>
-                        <li>**Proteção de dados e privacidade:** A segurança dos dados dos alunos deve ser uma prioridade, com a escolha de plataformas confiáveis e a educação sobre o uso ético da internet.</li>
-                        <li>**Valorização da diversidade:** As práticas pedagógicas devem valorizar as diferentes formas de expressão e os diferentes saberes, utilizando a tecnologia para dar voz a todos os alunos e promover um ambiente de respeito.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-school"></i>Exemplos práticos</div>
-                <div class="content-block">
-                    <ul>
-                        <li>**Jornal escolar digital com Canva e Google Sites:** Os alunos podem criar o jornal da escola de forma colaborativa, usando o Canva para o design e o Google Sites para a publicação online, desenvolvendo competências de pesquisa, escrita e trabalho em equipe.</li>
-                        <li>**Fóruns de discussão em AVAs como Moodle:** O professor pode propor um tema para debate e os alunos podem interagir em um fórum, aprofundando a discussão e compartilhando diferentes perspectivas, o que pode ser uma forma de avaliação da participação.</li>
-                        <li>**Portfólio digital com Padlet ou Mahara:** O portfólio digital permite que os alunos documentem seu processo de aprendizagem, reunindo trabalhos, projetos e reflexões em um único lugar, servindo como uma ferramenta de avaliação formativa e de autoavaliação.</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-question-circle"></i>Perguntas com respostas</div>
-                <div class="questions-block">
-                    <ul>
-                        <li>O que diferencia uma prática pedagógica de um uso técnico da tecnologia? **A diferença está na intencionalidade. O uso técnico é o ato de usar a ferramenta (por exemplo, abrir um slide). A prática pedagógica é o "porquê" por trás desse uso (por exemplo, usar o slide para criar um quiz interativo que avalia a compreensão dos alunos). A prática pedagógica é sempre guiada por um objetivo de aprendizagem claro.**</li>
-                        <li>Como garantir a inclusão? **A inclusão é garantida por meio de políticas que asseguram o acesso a equipamentos, mas também por uma abordagem pedagógica que adapte os recursos. Isso envolve o uso de ferramentas de acessibilidade, a criação de atividades que não dependam exclusivamente da internet e a sensibilidade do professor para atender às diferentes necessidades de seus alunos.**</li>
-                        <li>Quais competências docentes são necessárias para implementar essas práticas? **Além das competências digitais, os professores precisam desenvolver habilidades de planejamento, mediação, curadoria de conteúdo e design de experiências de aprendizagem. O professor precisa ser um facilitador do conhecimento, um guia que ajuda o aluno a navegar pelo mundo digital de forma crítica e criativa.**</li>
-                        <li>Como a avaliação dessas práticas deve ser feita? **A avaliação deve ser contínua, processual e diversificada. Métodos como rubricas, autoavaliações, peer review (avaliação pelos pares) e o uso de portfólios digitais são ideais para capturar o processo de aprendizagem, e não apenas o resultado final. O foco é em como o aluno constrói o conhecimento, e não apenas em quanto ele memoriza.**</li>
-                        <li>Essas práticas substituem o ensino tradicional? **Não. Elas não substituem, mas complementam e enriquecem o processo de ensino-aprendizagem. O ensino tradicional ainda tem seu lugar, especialmente no desenvolvimento de habilidades interpessoais e no aprendizado presencial. As práticas mediadas por tecnologia se somam a essas abordagens, criando um ecossistema educacional mais completo e adaptado às necessidades do século XXI.**</li>
-                    </ul>
-                </div>
-
-                <div class="section-title"><i class="fas fa-book"></i>Referências sugeridas</div>
-                <div class="references">
-                    <ul>
-                        <li><a href="https://periodicos.ufes.br/kirikere/article/view/46326" target="_blank">Tecnologias Digitais de Informação e Comunicação na educação e práticas pedagógicas</a>.</li>
-                        <li><a href="https://www.researchgate.net/publication/374835111_TDIC_E_EDUCACAO_desafios_e_possibilidades_na_pratica_pedagogica/fulltext/6531312a1d6e8a70703ca4db/TDIC-E-EDUCACAO-desafios-e-possibilidades-na-pratica-pedagogica.pdf" target="_blank">TDIC e Educação: desafios e possibilidades na prática pedagógica</a>.</li>
-                    </ul>
-                </div>
-                <div class="close-button-container">
-                    <button class="close-button">Fechar Tema</button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <div class="synthesis">
-        <h3><i class="fas fa-link"></i>Síntese Final</h3>
-        <p>A integração das TDICs à educação exige mais do que infraestrutura tecnológica: demanda políticas públicas consistentes, formação docente contínua, práticas pedagógicas inovadoras e compromisso com a inclusão. Os oito temas abordados revelam que a escola deve atuar como mediadora crítica, promovendo o protagonismo dos alunos e o uso ético das tecnologias. A cibercultura redefine os modos de aprender e ensinar, enquanto as metodologias ativas e o ensino híbrido ampliam as possibilidades de personalização e engajamento. A formação docente é o elo que conecta inovação à prática, e as políticas públicas são o suporte necessário para garantir equidade. A educação digital não é apenas uma tendência — é uma necessidade para formar cidadãos críticos, criativos e preparados para os desafios da sociedade contemporânea.</p>
+        <main class="content" id="content-9">
+            <h2><i class="fas fa-link"></i> Síntese Final</h2>
+            <p>Os oito temas mostram que as TDICs estão evoluindo a educação, mas não basta ter tecnologia—é preciso usá-la com sabedoria. Escolas devem guiar, professores devem inovar, e você, estudante, pode liderar seu aprendizado. A cibercultura conecta pessoas, metodologias ativas você coloca no centro, e políticas públicas buscam igualdade. A formação docente é tudo isso, garantindo aulas dinâmicas. <strong>Atividade: Escolha uma ferramenta (ex.: Padlet, Quizizz) e reflita: Como ela pode resolver um problema real, como organizar um evento escolar? A educação digital é mais que uma tendência—é o caminho para formar cidadãos críticos, criativos e prontos para o futuro.</strong></p>
+        </main>
     </div>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const headers = document.querySelectorAll('.topic-header');
-        const closeButtons = document.querySelectorAll('.close-button');
+    <footer>
+        <p>© 2025 Power Treinamento. Todos os direitos reservados.</p>
+    </footer>
 
-        headers.forEach(header => {
-            header.addEventListener('click', () => {
-                const content = header.nextElementSibling;
-                const arrow = header.querySelector('.arrow');
-                const isCurrentlyActive = content.classList.contains('active');
-
-                // Fechar todos os temas abertos
-                document.querySelectorAll('.topic-content.active').forEach(openContent => {
-                    openContent.classList.remove('active');
-                    openContent.previousElementSibling.classList.remove('active');
-                    openContent.previousElementSibling.querySelector('.arrow').style.transform = 'rotate(0deg)';
-                });
-
-                // Se o tema clicado não estava ativo, abra-o
-                if (!isCurrentlyActive) {
-                    content.classList.add('active');
-                    header.classList.add('active');
-                    arrow.style.transform = 'rotate(90deg)';
-                }
-            });
-        });
-
-        closeButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const topicContent = button.closest('.topic-content');
-                const topicHeader = topicContent.previousElementSibling;
-                const arrow = topicHeader.querySelector('.arrow');
-
-                topicContent.classList.remove('active');
-                topicHeader.classList.remove('active');
-                arrow.style.transform = 'rotate(0deg)';
-                
-                // Rola a página para o topo
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
-    });
-</script>
-
+    <script>
+        function showContent(id) {
+            const content = document.querySelectorAll('.content');
+            content.forEach(content => content.classList.remove('active'));
+            
+            const selectedContent = document.getElementById('content-' + id);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+                selectedContent.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        window.onload = function() {
+            showContent(1);
+        };
+    </script>
 </body>
 </html>
