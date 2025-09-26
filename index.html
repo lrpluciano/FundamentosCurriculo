@@ -55,7 +55,7 @@
             top: 0;
             z-index: 100;
             backdrop-filter: blur(10px);
-            height: 90px; /* Aumentado para acomodar melhor a logo */
+            height: 90px;
         }
 
         .logo {
@@ -63,8 +63,8 @@
             height: auto;
             border-radius: 8px;
             transition: transform 0.3s ease;
-            max-height: 70px; /* Limitar altura da logo */
-            object-fit: contain; /* Garantir que a logo mantenha proporção */
+            max-height: 70px;
+            object-fit: contain;
         }
 
         .logo:hover {
@@ -120,9 +120,9 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             overflow-y: auto;
-            max-height: calc(100vh - 150px); /* Ajustado para cabeçalho maior */
+            max-height: calc(100vh - 150px);
             position: sticky;
-            top: 110px; /* Ajustado para cabeçalho maior */
+            top: 110px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
@@ -208,7 +208,7 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             overflow-y: auto;
-            max-height: calc(100vh - 150px); /* Ajustado para cabeçalho maior */
+            max-height: calc(100vh - 150px);
             display: none;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -327,6 +327,329 @@
             margin: 0;
         }
 
+        /* Estilos para os quizzes */
+        .quiz-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.15);
+        }
+
+        .quiz-card i {
+            font-size: 2em;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .quiz-card h3 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .quiz-card p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Modal do Quiz */
+        .quiz-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .quiz-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .quiz-modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-modal-header {
+            padding: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quiz-modal-header h3 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .quiz-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .quiz-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .quiz-modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .quiz-progress {
+            padding: 15px 20px;
+            background: rgba(108, 99, 255, 0.1);
+            border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        .quiz-progress-bar {
+            height: 8px;
+            background: rgba(108, 99, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-question-container {
+            padding: 20px;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .quiz-question h4 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            line-height: 1.4;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 12px 15px;
+            background: white;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+
+        .quiz-option:hover {
+            background: rgba(108, 99, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        .quiz-option.selected {
+            background: rgba(108, 99, 255, 0.2);
+            border-color: var(--primary);
+            font-weight: 500;
+        }
+
+        .quiz-modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(108, 99, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .quiz-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: #1a1f3a;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn:disabled:hover {
+            background: var(--primary);
+            transform: none;
+        }
+
+        /* Resultados do Quiz */
+        .quiz-results {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .quiz-results h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .quiz-score {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-item .number {
+            font-size: 3em;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .score-item.correct .number {
+            color: var(--accent);
+        }
+
+        .score-item.incorrect .number {
+            color: var(--secondary);
+        }
+
+        .score-item .label {
+            font-size: 1em;
+            color: var(--dark);
+            margin-top: 5px;
+        }
+
+        .quiz-percentage {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .quiz-questions-review {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .review-question {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(108, 99, 255, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .review-question h4 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .review-options {
+            margin-bottom: 15px;
+        }
+
+        .review-option {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+
+        .review-option.user-answer {
+            background: rgba(255, 101, 132, 0.1);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .review-option.correct-answer {
+            background: rgba(78, 205, 196, 0.1);
+            border-left: 3px solid var(--accent);
+        }
+
+        .review-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .review-status.correct {
+            color: var(--accent);
+        }
+
+        .review-status.incorrect {
+            color: var(--secondary);
+        }
+
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -365,7 +688,7 @@
                 padding: 15px;
                 text-align: center;
                 height: auto;
-                min-height: 120px; /* Altura mínima para mobile */
+                min-height: 120px;
             }
 
             .title {
@@ -375,6 +698,24 @@
 
             .title h1 {
                 font-size: 1.6em;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-modal-content {
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .quiz-score {
+                flex-direction: column;
+                gap: 15px;
             }
         }
 
@@ -446,6 +787,10 @@
                 <h3>Síntese Final</h3>
                 <p>Resumo dos temas e o futuro da educação digital.</p>
             </div>
+            <div class="card" onclick="showContent(10)">
+                <h3><i class="fas fa-clipboard-check"></i> Avaliações e Quizzes</h3>
+                <p>Teste seu conhecimento com nossos quizzes interativos.</p>
+            </div>
         </nav>
 
         <main class="content" id="content-1">
@@ -516,405 +861,68 @@
         <!-- Conteúdo dos outros temas (2-9) permanece inalterado -->
         <!-- Mantive apenas o conteúdo do tema 1 como exemplo para economizar espaço -->
 
-        <main class="content" id="content-2">
-            <h2>Tema 2: A cibercultura e as novas formas de aprender e ensinar</h2>
-            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
-            <p>Cibercultura é o jeito como vivemos, aprendemos e aprendemos na era da internet. É como colaborar no Discord, compartilhar ideias no X ou aprender com tutoriais no YouTube. Na educação, ela cria espaços colaborativos e interativos, onde você pode explorar ideias clicando em links ou debatendo online. <strong>Atividade: Liste três formas de como você usa a internet para aprender fora da escola.</strong></p>
+        <main class="content" id="content-10">
+            <h2><i class="fas fa-clipboard-check"></i> Avaliações e Quizzes</h2>
+            <p>Teste seu conhecimento sobre Tecnologia Educacional com nossos quizzes interativos. Selecione um dos quizzes abaixo para começar:</p>
             
-            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
-            <ul>
-                <li><strong>Cibercultura</strong>: A cultura moldada pela tecnologia digital,como interagir em redes sociais.</li>
-                <li><strong>Aprendizagem em rede</strong>: Aprender conectando-se com outros online, como em fóruns.</li>
-                <li><strong>Hipertexto</strong>: Textos conectados por links, como navegar de uma página da Wikipédia para outra.</li>
-                <li><strong>Educação ubíqua</strong>: Aprender em qualquer lugar, como assistir a uma aula no celular.</li>
-                <li><strong>Interatividade</strong>: Participar ativamente, como responder a um quiz online.</li>
-                <li><strong>Cultura participativa</strong>: Criar e compartilhar conteúdo, como postar um vídeo educativo.</li>
-            </ul>
-            
-            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
-            <p><strong>Benefícios:</strong></p>
-            <ul>
-                <li>Autoria: Criar seus próprios vídeos ou postagens, como um vlog no YouTube.</li>
-                <li>Acesso: Explorar cursos gratuitos de universidades globais.</li>
-                <li>Diversidade: Conhecer ideias de pessoas de diferentes culturas.</li>
-            </ul>
-            
-            <p><strong>Desafios:</strong></p>
-            <ul>
-                <li>Superficialidade: Ler apenas manchetes sem entender o conteúdo.</li>
-                <li>Distrações digitais: Notificações que desviam o foco. Tente aplicativos como Forest para se concentrar.</li>
-                <li>Formação docente: Professores precisam de treinamento para usar tecnologia de forma eficaz.</li>
-            </ul>
-            
-            <p><strong>Aspectos éticos:</strong></p>
-            <ul>
-                <li>Respeitar todos os direitos autorais, como citar fontes de imagens.</li>
-                <li>Promover inclusão digital para terem acesso.</li>
-                <li>Combater fake news verificando informações antes de compartilhar.</li>
-            </ul>
-            
-            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
-            <ul>
-                <li>Criar um podcast no Anchor sobre um tema escolar.</li>
-                <li>Colaborar em um mural digital no Padlet para um projeto.</li>
-                <li>Usar Minecraft Education para construir um modelo de ecossistema.</li>
-                <li>Gamificação com Kahoot para revisar conteúdos.</li>
-            </ul>
-            
-            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
-            <ol>
-                <li><strong>Como a A cibercultura modifica o papel do professor?</strong> Ele vira um guia, ajudando a curar informações.</li>
-                <li><strong>Quais riscos existem na aprendizagem exclusivamente digital?</strong> Superficialidade, exclusão e menos interação pessoal.</li>
-                <li><strong>Como promover a autoria dos alunos?</strong> Criando conteúdos como blogs ou vídeos.</li>
-                <li><strong>Interatividade garante engajamento?</strong> Só se for bem planejado, como um quiz contextualizado.</li>
-                <li><strong>Como lidar com distrações digitais?</strong> Usando estratégias como aplicativos de foco ou horários de estudo.</li>
-                <li><strong>Como plataformas como X ou YouTube ajudam a aprender?</strong> Explore um tópico no X e resuma um post útil.</li>
-            </ol>
-            
-            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
-            <ul>
-                <li>LÉVY, Pierre. <em>Cibercultura</em> (1999) – Um guia para entender a cultura digital.</li>
-                <li>SANTAELLA, Lucia. <em>Cibercultura</em> (2003) – Explora como a internet muda para a sociedade.</li>
-                <li>PRETTO, Nelson. <em>Educação e cibercultura</em> (2005) – Foca na educação na era digital.</li>
-                <li><a href="https://educapes.capes.gov.br/handle/capes/972599?mode=full" target="_blank">Artigo: Cibercultura e Educação</a> – Discutir impactos e desafios.</li>
-                <li><a href="https://www.ted.com/talks" target="_blank">TED Talks sobre cultura digital</a> – Vídeos curtos e inspiradores.</li>
-            </ul>
+            <div class="quiz-selector">
+                <div class="quiz-card" onclick="startQuiz('exam1')">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Exame 1</h3>
+                    <p>10 questões sobre conceitos fundamentais</p>
+                </div>
+                <div class="quiz-card" onclick="startQuiz('exam2')">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Exame 2</h3>
+                    <p>10 questões sobre transformação educacional</p>
+                </div>
+                <div class="quiz-card" onclick="startQuiz('exam3')">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Exame 3</h3>
+                    <p>9 questões sobre práticas pedagógicas</p>
+                </div>
+                <div class="quiz-card" onclick="startQuiz('practical')">
+                    <i class="fas fa-tasks"></i>
+                    <h3>Teste Prático</h3>
+                    <p>10 questões sobre aplicações práticas</p>
+                </div>
+            </div>
         </main>
+    </div>
 
-        <main class="content" id="content-3">
-            <h2>Tema 3: As TDICs e os processos de ensino-aprendizagem</h2>
-            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
-            <p>TDICs (Tecnologias Digitais de Informação e Comunicação) são como ferramentas em uma caixa de um professor: Zoom, Google Forms ou aplicativos que tornam o aprendizado mais interativo. Eles ampliam o acesso ao conhecimento, personalizam aulas e incentivam a participação, mas precisam de planejamento para funcionar bem. <strong>Atividade: Liste dois aplicativos que você usa para estudar e como eles ajudam.</strong></p>
+    <!-- Modal do Quiz -->
+    <div id="quiz-modal" class="quiz-modal">
+        <div class="quiz-modal-content">
+            <div class="quiz-modal-header">
+                <h3 id="quiz-title">Quiz</h3>
+                <button class="quiz-close" onclick="closeQuiz()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
             
-            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
-            <ul>
-                <li><strong>TDICs</strong>: Ferramentas digitais, como apps e plataformas, que apoiam a educação.</li>
-                <li><strong>Ensino híbrido</strong>: Mistura aulas online (como vídeos) com presenciais (como debates).</li>
-                <li><strong>AVA</strong>: Ambientes Virtuais de Aprendizagem, como Moodle, onde você acessa materiais.</li>
-                <li><strong>Personalização</strong>: Ajustar o ensino ao seu ritmo, como quizzes adaptativos.</li>
-                <li><strong>Aprendizagem colaborativa</strong>: Trabalhar em grupo, como em um Google Doc compartilhado.</li>
-                <li><strong>Feedback automatizado</strong>: Respostas instantâneas, como em um teste online.</li>
-            </ul>
+            <div class="quiz-progress">
+                <div class="quiz-progress-bar">
+                    <div id="quiz-progress-fill" class="quiz-progress-fill"></div>
+                </div>
+            </div>
             
-            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
-            <p><strong>Benefícios:</strong></p>
-            <ul>
-                <li>Acesso a recursos como cursos online gratuitos.</li>
-                <li>Autonomia para estudar no seu tempo.</li>
-                <li>Formatos variados, como vídeos e jogos educativos.</li>
-            </ul>
+            <div class="quiz-modal-body">
+                <div id="quiz-content" class="quiz-question-container">
+                    <!-- O conteúdo do quiz será carregado aqui dinamicamente -->
+                </div>
+            </div>
             
-            <p><strong>Desafios:</strong></p>
-            <ul>
-                <li>Formação docente: Professores precisam aprender a usar TDICs.</li>
-                <li>Dependência tecnológica: E você tem um cair da internet? As escolas precisam de planos offline.</li>
-                <li>Integração curricular: Usar tecnologia com propósito, não só por usar.</li>
-            </ul>
-            
-            <p><strong>Aspectos éticos:</strong></p>
-            <ul>
-                <li>Proteger dados pessoais em plataformas como Google Classroom.</li>
-                <li>Garantir equidade para todos terem acesso à tecnologia.</li>
-                <li>Usar TDICs de forma significativa, homologada aos objetivos de aprendizado.</li>
-            </ul>
-            
-            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
-            <ul>
-                <li>Simuladores como PhET para visualizar conceitos de física.</li>
-                <li>Plataformas como Khan Academy para aprender no seu ritmo.</li>
-                <li>Usar Duolingo para praticar idiomas.</li>
-                <li>Criar flashcards no Quizlet para estudar biologia.</li>
-            </ul>
-            
-            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
-            <ol>
-                <li><strong>TDICs melhoram a aprendizagem por si só?</strong> Não, precisa de um professor que planeje bem.</li>
-                <li><strong>Como garantir a inclusão?</strong> Com políticas públicas e ferramentas acessíveis.</li>
-                <li><strong>Qual o papel do professor?</strong> Criar experiências de aprendizagem, como um designer.</li>
-                <li><strong>Como evitar o uso superficial?</strong> Com formação e planejamento cuidadoso.</li>
-                <li><strong>TDICs substituem o ensino presencial?</strong> Não,complementam com mais opções.</li>
-                <li><strong>Como os TDICs ajudam você a aprender no seu ritmo?</strong> Faça uma lição na Khan Academy e note como ela se ajusta ao seu progresso.</li>
-            </ol>
-            
-            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
-            <ul>
-                <li>MORAN, José. <em>Mudando a educação com metodologias ativas</em> (2018) – Ideias para aulas dinâmicas.</li>
-                <li>BACICH, Lilian; MORAN, José; TREVISANI, Fernando. <em>Metodologias ativas para uma educação inovadora</em> (2015) – Guia prático para professores.</li>
-                <li>VALENTE, José Armando. <em>Tecnologia na escola: o que fazer?</em> (2002) – Reflexões sobre tecnologia na educação.</li>
-                <li><a href="https://www.researchgate.net/publication/374835111_TDIC_E_EDUCACAO_desafios_e_possibilidades_na_pratica_pedagogica" target="_blank">Artigo: TDIC e Educação</a> – Explora desafios e soluções.</li>
-                <li><a href="https://periodicos.newsciencepubl.com/LEV/article/download/6648/9103/26069" target="_blank">Artigo: Ensino híbrido</a> – Foca na personalização do ensino.</li>
-            </ul>
-        </main>
-
-        <main class="content" id="content-4">
-            <h2>Tema 4: Metodologias ativas e tecnologias digitais de informação e comunicação</h2>
-            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
-            <p>Metodologias ativas colocam você no comando do seu aprendizado. Em vez de apenas ouvir, você cria projetos, como um site para um evento escolar, usando ferramentas como Canva ou Google Sites. Combinadas com TDICs, essas metodologias tornam o aprendizado mais personalizado e colaborativo. <strong>Atividade: Pense em um problema na sua escola e como um projeto digital poderia resolvê-lo.</strong></p>
-            
-            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
-            <ul>
-                <li><strong>Metodologias ativas</strong>: Estratégias onde você participa inovadora, como resolver um problema real.</li>
-                <li><strong>Aprendizagem baseada em problemas (ABP)</strong>: Resolver questões práticas, como planejar um evento sustentável.</li>
-                <li><strong>Sala de aula invertida</strong>: Estudar em casa (ex.: vídeo sobre ecologia) e debatedor em aula.</li>
-                <li><strong>Gamificação</strong>: Usar jogos, como Kahoot, para tornar o estudo divertido.</li>
-                <li><strong>Ensino híbrido</strong>: Misturar aulas presenciais e online.</li>
-                <li><strong>Design instrucional</strong>:Planejar aulas como um arquiteto projeta uma casa.</li>
-            </ul>
-            
-            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
-            <p><strong>Benefícios:</strong> Mais engajamento, autonomia e habilidades como trabalho em equipe.</p>
-            <p><strong>Desafios:</strong> Professores temem perder controle; os alunos podem resistir a métodos novos; avaliar progresso é complexo.</p>
-            <p><strong>Ética:</strong> Garantir equidade, respeito diferenças e usar tech com propósito.</p>
-            
-            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
-            <ul>
-                <li>Criar um mural interdisciplinar no Padlet.</li>
-                <li>Usar Nearpod para aulas interativas de ciências.</li>
-                <li>Gamificação com Matific para aprender matemática.</li>
-                <li>Sala invertida com vídeos e quizzes no Google Forms.</li>
-            </ul>
-            
-            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
-            <ol>
-                <li>O aluno torna-se protagonista, liderando projetos.</li>
-                <li>TDICs potencializam, mas não são indispensáveis.</li>
-                <li>O professor é um mediador e inovador.</li>
-                <li>A avaliação deve ser contínua, usando portfólios e rubricas.</li>
-                <li>Superficialidade é evitada com planejamento.</li>
-                <li><strong>Qual metodologia ativa você gostaria de experimentar?</strong> Crie um mini-projeto com Padlet e explique sua ideia.</li>
-            </ol>
-            
-            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
-            <ul>
-                <li>BACICH, Lilian; MORAN, José; TREVISANI, Fernando. <em>Metodologias ativas para uma educação inovadora</em> (2015) – Guia prático para aulas ativas.</li>
-                <li>MORAN, José. <em>A educação que desejamos</em> (2007) – Visão de uma educação dinâmica.</li>
-                <li><a href="https://educacaopublica.cecierj.edu.br/artigos/25/33/a-utilizacao-das-tdic-e-metodologias-ativas-no-ensino-medio" target="_blank">Artigo: TDIC e metodologias ativas</a> – Exemplos para o ensino médio.</li>
-                <li><a href="https://revistavalore.emnuvens.com.br/valore/article/view/1341" target="_blank">Artigo: Gamificação</a> – Como jogos apoiam o aprendizado.</li>
-            </ul>
-        </main>
-
-        <main class="content" id="content-5">
-            <h2>Tema 5:Políticas públicas para a inserção das tecnologias digitais de informação e comunicação na educação</h2>
-            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
-            <p>Políticas públicas são como mapas do governo para tecnologia levar às escolas, como Wi-Fi gratuito ou laptops para estudantes. Elas buscam tornar a educação mais justa e inovadora, mas precisam superar obstáculos como falta de recursos. <strong>Atividade: Executar uma política educacional na sua região e como ela impacta sua escola.</strong></p>
-            
-            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
-            <ul>
-                <li><strong>Política pública educacional</strong>: Planos do governo para todos melhorar a educação.</li>
-                <li><strong>Inclusão digital</strong>: Garantir que, mesmo em áreas rurais, tenham internet.</li>
-                <li><strong>Infraestrutura tecnológica</strong>: Equipar escolas com computadores e Wi-Fi.</li>
-                <li><strong>Formação continuada</strong>: Treinamento de professores para usar TDICs.</li>
-                <li><strong>Conteúdos digitais educacionais</strong>: Materiais como e-books ou vídeos educativos.</li>
-                <li><strong>Avaliação e monitoramento</strong>: Verifique se as políticas estão funcionando.</li>
-            </ul>
-            
-            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
-            <p><strong>Benefícios:</strong> Reduzir desigualdades, promover inovação e cidadania digital.</p>
-            <p><strong>Desafios:</strong> Falta de verbo, descontinuidade de programas e resistência escolar.</p>
-            <p><strong>Ética:</strong> Garantir acesso universal, normas regionais e ser transparente.</p>
-            
-            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
-            <ul>
-                <li>Programa Educação Conectada para Wi-Fi em escolas.</li>
-                <li>ProInfo Integrado distribuindo tablets.</li>
-                <li>Plataforma AVAMEC com cursos gratuitos.</li>
-                <li>PNLD Digital para livros digitais.</li>
-            </ul>
-            
-            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
-            <ol>
-                <li>Políticas públicas promovem equidade e qualidade.</li>
-                <li>Obstáculos incluem falta de financiamento e proporção.</li>
-                <li>Avaliação exige indicadores claros e participação da comunidade.</li>
-                <li>A comunidade escolar deve ajudar a planejar políticas.</li>
-                <li>Diversidade regional exige políticas flexíveis.</li>
-                <li><strong>Como uma política poderia melhorar sua escola?</strong> Encontrei uma iniciativa local e compartilhe seu impacto.</li>
-            </ol>
-            
-            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
-            <ul>
-                <li>CASTELLS, Manuel. <em>A sociedade em rede</em> (1999) – Sobre redes e tecnologia.</li>
-                <li>MEC. <em>Educação Conectada</em> – Detalhes do programa brasileiro.</li>
-                <li><a href="https://www.upf.br/_Uploads/Conteudo/senid/2018-artigos-completos/178958.pdf" target="_blank">Artigo: Políticas públicas em debate</a> – Análise de iniciativas educacionais.</li>
-                <li><a href="https://monografias.ufma.br/jspui/bitstream/123456789/8777/1/RAQUEL%20AGUIAR%20DO%20NASCIMENTO.pdf" target="_blank">Artigo: Inclusão digital</a> – Foco na educação básica.</li>
-            </ul>
-        </main>
-
-        <main class="content" id="content-6">
-            <h2>Tema 6: Formação de professores e utilização das TDICs em sala de aula</h2>
-            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
-            <p>Professores são como exploradores em um mundo digital, aprendendo a usar ferramentas como Zoom ou Google Classroom para tornar aulas mais dinâmicas. A formação contínua é essencial para que eles integrem TDICs de forma crítica e eficaz. <strong>Atividade: Entreviste um professor sobre como ele usa tecnologia na sala de aula.</strong></p>
-            
-            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
-            <ul>
-                <li><strong>Competência digital docente</strong>: Habilidades como criar quizzes no Quizizz.</li>
-                <li><strong>Formação continuada</strong>: Treinamento constante para acompanhar novas tecnologias.</li>
-                <li><strong>Integração pedagógica das TDICs</strong>: Usar tech com propósito educacional.</li>
-                <li><strong>Letramento digital</strong>: Saber navegar e avaliar informações online.</li>
-                <li><strong>Autonomia docente</strong>: Professores decidindo como usar TDICs.</li>
-                <li><strong>Cultura digital escolar</strong>: Uma escola que abraça a tecnologia.</li>
-            </ul>
-            
-            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
-            <p><strong>Benefícios:</strong> Aulas mais dinâmicas, engajamento e inovação, como passeios virtuais.</p>
-            <p><strong>Desafios:</strong> Professores se sentem inseguros, falta apoio e formação inicial é fraca.</p>
-            <p><strong>Ética:</strong> Uso responsável, valorizar criações dos alunos e promover a inclusão.</p>
-            
-            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
-            <ul>
-                <li>Cursos gratuitos na AVAMEC para professores.</li>
-                <li>Usar Microsoft Teams para planejar aulas colaborativamente.</li>
-                <li>Comunidades no Edmodo para trocar ideias.</li>
-                <li>Planejamento com Google Docs em grupos.</li>
-            </ul>
-            
-            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
-            <ol>
-                <li>Formação contínua é vital por causa da evolução rápida da tecnologia.</li>
-                <li>Superficialidade é evitada com planejamento intencional.</li>
-                <li>Competências incluem curadoria, design e segurança digital.</li>
-                <li>Obstáculos: falta de infraestrutura e proteção de trabalho.</li>
-                <li>Cultura digital exige exigência e redução dos professores.</li>
-                <li><strong>Como os professores podem se manter atualizações?</strong> Explore um curso na AVAMEC e resuma uma dica útil.</li>
-            </ol>
-            
-            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
-            <ul>
-                <li>VALENTE, José Armando. <em>Ensino e aprendizagem com tecnologias</em> (2014) – Foco em práticas com tecnologia.</li>
-                <li>MORAN, José. <em>A educação que desejamos</em> (2007) – Visão inspirada para professores.</li>
-                <li><a href="https://www.scielo.br/j/tl/a/phLSyQY6WxDcNX9pSWGT5CF/?format=pdf" target="_blank">Artigo: Competência digital docente</a> – Explora habilidades digitais.</li>
-                <li><a href="https://www.e-publicacoes.uerj.br/re-doc/article/download/65485/pdf/0" target="_blank">Artigo: Formação de professores e TDICs</a> – Estratégias práticas.</li>
-            </ul>
-        </main>
-
-        <main class="content" id="content-7">
-            <h2>Tema 7: Utilização das tecnologias digitais de informação e comunicação como ferramentas de ajuda à aprendizagem</h2>
-            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
-            <p>TDICs são como amigos de estudo: apps como Notion organizam suas tarefas, e plataformas como Code.org ensinam habilidades como programar. Elas o aprendizado mais interativo, personalizado e acessível, mas precisam ser usadas com cuidado. <strong>Atividade: Escolha um aplicativo educacional e explique como ele ajuda seus estudos.</strong></p>
-            
-            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
-            <ul>
-                <li><strong>Ferramentas digitais de apoio</strong>: Apps como Quizlet que ajudam a estudar.</li>
-                <li><strong>Aprendizagem personalizada</strong>: Aulas ajustadas ao seu ritmo, como Khan Academy.</li>
-                <li><strong>Multimodalidade</strong>: Aprender com vídeos, textos e jogos.</li>
-                <li><strong>Feedback em tempo real</strong>: Respostas instantâneas em quizzes online.</li>
-                <li><strong>Aprendizagem móvel</strong>: Estudar em qualquer lugar, como no ônibus com Duolingo.</li>
-                <li><strong>Curadoria digital</strong>: Escolher recursos confiáveis, como sites acadêmicos.</li>
-            </ul>
-            
-            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
-            <p><strong>Benefícios:</strong></p>
-            <ul>
-                <li>Autonomia: Estude quando é como quiser, pausando vídeos ou revisando.</li>
-                <li>Engajamento: Jogos educativos tornam o estudo divertido.</li>
-                <li>Atende diferentes estilos, como vídeos para visuais ou podcasts para auditivos.</li>
-            </ul>
-            
-            <p><strong>Desafios:</strong></p>
-            <ul>
-                <li>Sobrecarga: Muitos aplicativos podem confundir. Use um como Todoist para organizar.</li>
-                <li>Acesso: Nem todos têm smartphones ou internet estável.</li>
-                <li>Formação docente: Os professores precisam saber escolher ferramentas certas.</li>
-            </ul>
-            
-            <p><strong>Aspectos éticos:</strong></p>
-            <ul>
-                <li>Proteger sua privacidade em aplicativos educacionais.</li>
-                <li>Evitar depender apenas de tecnologia; equilíbrio é essencial.</li>
-                <li>Usar ferramentas homologadas aos objetivos de aprendizado.</li>
-            </ul>
-            
-            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
-            <ul>
-                <li>Google Forms para testes formativos.</li>
-                <li>Notion para organizar projetos escolares.</li>
-                <li>Simuladores como GeoGebra para visualizar matemática.</li>
-                <li>Quizizz para revisar conteúdos de forma divertida.</li>
-            </ul>
-            
-            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
-            <ol>
-                <li><strong>As TDICs substituem o professor?</strong> Não, ampliam possibilidades, mas o professor é essencial.</li>
-                <li><strong>Como escolher ferramentas certas?</strong> Considere seus objetivos e infraestrutura da escola.</li>
-                <li><strong>Quais riscos existem no uso excessivo?</strong> Superficialidade, dependência e estresse digital.</li>
-                <li><strong>Como apoiar alunos com dificuldades?</strong> Com ferramentas acessíveis e feedback personalizado.</li>
-                <li><strong>O uso de tecnologias garante qualidade?</strong> Não, depende de planejamento e engajamento.</li>
-                <li><strong>Qual TDIC ajuda mais seus estudos?</strong> Teste Quizizz e explique como ele melhorou seu aprendizado.</li>
-            </ol>
-            
-            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
-            <ul>
-                <li><a href="https://www.scielo.br/j/pee/a/NwwLwRTRTdBDmXWW4Nq7ByS/?format=pdf" target="_blank">Artigo: Tecnologias digitais como instrumentos mediadores</a> – Como TDICs apoiam o aprendizado.</li>
-                <li><a href="https://revista.uemg.br/gtic-malestar/article/download/7859/4866/31648" target="_blank">Artigo: TDICs e aprendizagem ubíqua</a> – Foco em aprender em qualquer lugar.</li>
-            </ul>
-        </main>
-
-        <main class="content" id="content-8">
-            <h2>Tema 8: Práticas pedagógicas mediadas por tecnologia</h2>
-            <h3><i class="fas fa-compass"></i> Introdução ao tema</h3>
-            <p>Imagine uma aula onde você faz brainstorming no Jamboard, compartilhando ideias em tempo real. Práticas pedagógicas mediadas por tecnologia usam ferramentas digitais com propósito, repensando como professores ensinam e os alunos aprendem. <strong>Atividade: Propor uma aula usando uma ferramenta digital como Jamboard.</strong></p>
-            
-            <h3><i class="fas fa-brain"></i> Conceitos chave</h3>
-            <ul>
-                <li><strong>Mediação tecnológica</strong>: Usar tecnologia para facilitar o aprendizado, como um quadro digital.</li>
-                <li><strong>Ambiente híbrido de aprendizagem</strong>: Misturar online e presencial, como debates virtuais.</li>
-                <li><strong>Práticas pedagógicas inovadoras</strong>: Métodos criativos, como projetos colaborativos online.</li>
-                <li><strong>Interação digital</strong>: Participar ativamente, como nos fóruns do Moodle.</li>
-                <li><strong>Avaliação mediada por tecnologia</strong>: Usar quizzes online para feedback.</li>
-                <li><strong>Cocriação de conhecimento</strong>: Criar um wiki em grupo no Google Docs.</li>
-            </ul>
-            
-            <h3><i class="fas fa-balance-scale"></i> Impactos e desafios</h3>
-            <p><strong>Benefícios:</strong></p>
-            <ul>
-                <li>Aprender em qualquer lugar, como em casa ou na escola.</li>
-                <li>Autoria: Criar portfólios digitais para mostrar seu trabalho.</li>
-                <li>Engajamento com ferramentas como Kahoot ou Jamboard.</li>
-            </ul>
-            
-            <p><strong>Desafios:</strong></p>
-            <ul>
-                <li>Integração: Tech deve se conectar ao currículo, não ser apenas decoração.</li>
-                <li>Formação: Professores precisam de treino para inovar.</li>
-                <li>Uso superficial: Evitar tech só para "parecer moderno".</li>
-            </ul>
-            
-            <p><strong>Aspectos éticos:</strong></p>
-            <ul>
-                <li>Garantir acessibilidade para todos os sistemas alunos.</li>
-                <li>Proteger dados em plataformas digitais.</li>
-                <li>Valorizar diferentes formas de </li>
-            </ul>
-            
-            <h3><i class="fas fa-school"></i> Exemplos práticos</h3>
-            <ul>
-                <li>Jornal escolar digital com Canva e Google Sites.</li>
-                <li>Fóruns de discussão no Moodle para debater temas.</li>
-                <li>Portfólio digital no Seesaw para mostrar projetos.</li>
-                <li>Brainstorming colaborativo no Jamboard.</li>
-            </ul>
-            
-            <h3><i class="fas fa-question-circle"></i> Perguntas com respostas</h3>
-            <ol>
-                <li><strong>O que diferencia uma prática pedagógica de um uso técnico?</strong> O propósito educacional e planejamento.</li>
-                <li><strong>Como garantir a inclusão?</strong> Adaptando e ouvindo recursos os alunos.</li>
-                <li><strong>Quais competências docentes são ensinadas?</strong> Planejamento, domínio digital e compreensão.</li>
-                <li><strong>Como avaliar essas práticas?</strong> Com rubricas, portfólios e respostas.</li>
-                <li><strong>Essas práticas substituem o ensino tradicional?</strong> Não, complementam e enriquecem.</li>
-                <li><strong>Como a tecnologia pode tornar aulas mais interativas?</strong> Experimente o Jamboard e descreva seu impacto.</li>
-            </ol>
-            
-            <h3><i class="fas fa-book"></i> Referências sugeridas</h3>
-            <ul>
-                <li><a href="https://periodicos.ufes.br/kirikere/article/view/46326" target="_blank">Artigo:TDICs e práticas pedagógicas</a> – Como usar tecnologia de forma significativa.</li>
-                <li><a href="https://www.researchgate.net/publication/374835111_TDIC_E_EDUCACAO_desafios_e_possibilidades_na_pratica_pedagogica" target="_blank">Artigo: Desafios e possibilidades</a> – Reflexões sobre práticas com TDICs.</li>
-            </ul>
-        </main>
-
-        <main class="content" id="content-9">
-            <h2><i class="fas fa-link"></i> Síntese Final</h2>
-            <p>Os oito temas mostram que as TDICs estão evoluindo a educação, mas não basta ter tecnologia—é preciso usá-la com sabedoria. Escolas devem guiar, professores devem inovar, e você, estudante, pode liderar seu aprendizado. A cibercultura conecta pessoas, metodologias ativas você coloca no centro, e políticas públicas buscam igualdade. A formação docente é tudo isso, garantindo aulas dinâmicas. <strong>Atividade: Escolha uma ferramenta (ex.: Padlet, Quizizz) e reflita: Como ela pode resolver um problema real, como organizar um evento escolar? A educação digital é mais que uma tendência—é o caminho para formar cidadãos críticos, criativos e prontos para o futuro.</strong></p>
-        </main>
+            <div class="quiz-modal-footer">
+                <div class="quiz-buttons">
+                    <button id="quiz-prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>
+                        <i class="fas fa-arrow-left"></i> Anterior
+                    </button>
+                    <button id="quiz-next-btn" class="btn" onclick="nextQuestion()">
+                        <i class="fas fa-arrow-right"></i> Próxima
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -922,6 +930,475 @@
     </footer>
 
     <script>
+        // Dados dos quizzes
+        const quizData = {
+            exam1: {
+                title: "Exame 1",
+                questions: [
+                    {
+                        question: "Qual afirmação descreve melhor o conceito de 'tecnologia' na educação?",
+                        options: [
+                            "Tecnologia refere-se apenas a dispositivos digitais usados em salas de aula.",
+                            "Tecnologia está relacionada exclusivamente à ciência da computação.",
+                            "Tecnologia significa ensinar os alunos a usar software.",
+                            "A tecnologia é um processo contínuo que molda a vida humana e melhora o aprendizado.",
+                            "A tecnologia é desnecessária na prática pedagógica moderna."
+                        ],
+                        correct: 3
+                    },
+                    {
+                        question: "Qual fator é mais crucial para a integração eficaz das TIC na escola de acordo com o currículo?",
+                        options: [
+                            "Computadores atualizados.",
+                            "Conexão rápida à internet.",
+                            "Formação de professores e inclusão crítica de tecnologias na pedagogia.",
+                            "Parcerias comerciais.",
+                            "Interesse dos alunos em mídias sociais."
+                        ],
+                        correct: 2
+                    },
+                    {
+                        question: "O que distingue as 'tecnologias físicas' das 'tecnologias simbólicas'?",
+                        options: [
+                            "Ambos são controlados por software.",
+                            "As tecnologias físicas se referem a objetos; as simbólicas se referem a sistemas de comunicação.",
+                            "Simbólico é hardware; físico é cultural.",
+                            "Físico é apenas digital.",
+                            "Não há distinção."
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "Um dos principais desafios para os professores em relação ao uso da tecnologia nas escolas é:",
+                        options: [
+                            "Falta de engajamento dos alunos.",
+                            "Uso excessivo da internet.",
+                            "Resistência a métodos não digitais.",
+                            "Formação insuficiente dos professores sobre o uso pedagógico.",
+                            "Não há acesso a celulares."
+                        ],
+                        correct: 3
+                    },
+                    {
+                        question: "O que não é considerado um objetivo principal para a inserção das TIC na educação?",
+                        options: [
+                            "Criar novas formas de interação pedagógica.",
+                            "Apoiar a memorização mecânica.",
+                            "Incentivar a criatividade e o pensamento crítico.",
+                            "Facilitar a inclusão digital.",
+                            "Transformar ambientes de aprendizagem."
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "Em relação ao uso da mídia na educação, o que é recomendado?",
+                        options: [
+                            "Integrar equipamentos e processos reflexivos na aprendizagem.",
+                            "Foco somente em equipamentos técnicos.",
+                            "Proibir as redes sociais nas salas de aula.",
+                            "Use apenas mídias tradicionais, como livros.",
+                            "Prefira recursos em papel aos digitais."
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "De acordo com o currículo, quem é o principal agente no processo tecnológico?",
+                        options: [
+                            "Estudantes.",
+                            "Professores.",
+                            "Administradores escolares.",
+                            "Seres humanos em contextos educacionais.",
+                            "Computadores."
+                        ],
+                        correct: 3
+                    },
+                    {
+                        question: "Qual é uma prática recomendada ao aplicar tecnologia digital em sala de aula?",
+                        options: [
+                            "Usar a tecnologia para simplesmente replicar métodos existentes.",
+                            "Integrar novas metodologias que transformem o ensino e a aprendizagem.",
+                            "Concentre-se apenas em habilidades técnicas.",
+                            "Ignorar o feedback dos alunos.",
+                            "Proibir dispositivos na escola."
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "O que as políticas educacionais no Brasil enfatizam em relação ao uso da tecnologia?",
+                        options: [
+                            "Investimento exclusivo em dispositivos.",
+                            "Limitar o acesso à internet.",
+                            "Proibição da informática.",
+                            "Foco apenas em infraestrutura.",
+                            "Formação de professores para aplicação pedagógica significativa."
+                        ],
+                        correct: 4
+                    },
+                    {
+                        question: "O conceito de 'inclusão digital' abrange:",
+                        options: [
+                            "Ensinar os alunos a usar as mídias sociais.",
+                            "Garantir que todas as partes interessadas na educação possam acessar e se beneficiar dos recursos digitais.",
+                            "Limitar a tecnologia para alunos mais jovens.",
+                            "Bloqueio de sites não educacionais.",
+                            "Evitar colaboração em projetos de TIC."
+                        ],
+                        correct: 1
+                    }
+                ]
+            },
+            exam2: {
+                title: "Exame 2",
+                questions: [
+                    {
+                        question: "Qual é a principal transformação esperada com a adoção de TIC nas escolas?",
+                        options: [
+                            "Substituir os livros didáticos apenas por tablets.",
+                            "Mudança profunda nas metodologias e relações de ensino.",
+                            "Reduzir as responsabilidades dos professores.",
+                            "Currículos mais rígidos.",
+                            "Padronizar o trabalho dos alunos."
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "De acordo com as diretrizes curriculares, o conforto do professor com a tecnologia significa:",
+                        options: [
+                            "Dominar apenas equipamentos básicos.",
+                            "Ignorar novas ferramentas educacionais.",
+                            "Delegar todo o trabalho técnico à equipe de TI.",
+                            "Evitar plataformas digitais.",
+                            "Ser capaz de avaliar e inovar com recursos digitais."
+                        ],
+                        correct: 4
+                    },
+                    {
+                        question: "O que NÃO é uma característica de ambientes de aprendizagem digital eficazes?",
+                        options: [
+                            "Interatividade e múltiplas formas de comunicação.",
+                            "Navegação flexível e integração de informações.",
+                            "Adaptabilidade cultural.",
+                            "Sistemas fechados, não conectados em rede.",
+                            "Oportunidades de colaboração."
+                        ],
+                        correct: 3
+                    },
+                    {
+                        question: "Na avaliação de políticas de TIC, qual indicador é crucial?",
+                        options: [
+                            "Número de computadores por aluno.",
+                            "Somente frequência estudantil.",
+                            "Idade dos edifícios escolares.",
+                            "Instalações esportivas.",
+                            "Nível de qualificação do professor para uso das TIC."
+                        ],
+                        correct: 4
+                    },
+                    {
+                        question: "O currículo destaca que o uso bem-sucedido da tecnologia na educação depende de:",
+                        options: [
+                            "Apenas ter equipamento avançado.",
+                            "Limitar o acesso à internet.",
+                            "Métodos de ensino uniformes.",
+                            "Engajamento do professor, reflexão e desenvolvimento profissional contínuo.",
+                            "Reduzir o tempo de aula."
+                        ],
+                        correct: 3
+                    },
+                    {
+                        question: "Qual o papel da avaliação de projetos na adoção de tecnologia?",
+                        options: [
+                            "Verificar apenas especificações técnicas.",
+                            "Monitoramento dos impactos no ensino e na aprendizagem.",
+                            "Calculando apenas o custo.",
+                            "Priorizar hardware em detrimento de recursos humanos.",
+                            "Evitar a coleta de feedback."
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "Qual estratégia pedagógica aumenta a eficácia da tecnologia?",
+                        options: [
+                            "Incentivar tarefas de aprendizagem colaborativas e criativas.",
+                            "Isolar a tecnologia do currículo.",
+                            "Atribuição de exercícios repetitivos.",
+                            "Retirar a autonomia do aluno.",
+                            "Padronizar a entrega de conteúdo."
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "A que se refere 'alfabetização digital'?",
+                        options: [
+                            "Saber apenas operar dispositivos.",
+                            "Memorizar peças de computador.",
+                            "Utilizar recursos obsoletos.",
+                            "Confiar apenas em tutoriais.",
+                            "Uso crítico e criativo de tecnologias digitais em diversos contextos."
+                        ],
+                        correct: 4
+                    },
+                    {
+                        question: "Para a formação de professores em TIC, o que é recomendado?",
+                        options: [
+                            "Somente workshops curtos e esporádicos.",
+                            "Desenvolvimento integrado e contínuo alinhado às necessidades pedagógicas.",
+                            "Evitar intercâmbio profissional.",
+                            "Somente trabalho individual.",
+                            "Evento de treinamento único."
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "No contexto das políticas públicas brasileiras, o que continua sendo um desafio?",
+                        options: [
+                            "Acesso universal à formação tecnológica de qualidade para professores.",
+                            "Uso excessivo de tecnologia.",
+                            "Excesso de recursos digitais.",
+                            "Falta de dispositivos estudantis.",
+                            "Foco no ensino analógico."
+                        ],
+                        correct: 0
+                    }
+                ]
+            },
+            exam3: {
+                title: "Exame 3",
+                questions: [
+                    {
+                        question: "O que melhor resume o papel da mídia na mudança educacional?",
+                        options: [
+                            "Proporcionar entretenimento aos alunos.",
+                            "Permitir novas formas de aprendizagem interativa e participativa.",
+                            "Controlar as opiniões dos alunos.",
+                            "Substituição de professores em sala de aula.",
+                            "Concentrar-se apenas em materiais visuais."
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "Por que simplesmente instalar computadores nas escolas não é suficiente para transformar a educação?",
+                        options: [
+                            "Não garante melhores práticas pedagógicas.",
+                            "Resolve todos os problemas de aprendizagem.",
+                            "Elimina a necessidade de formação de professores.",
+                            "Aumenta o absenteísmo.",
+                            "Automatiza o design curricular."
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "O que é uma tecnologia simbólica?",
+                        options: [
+                            "Somente hardware de computador.",
+                            "Sistemas e interfaces de comunicação, potencializando a construção do conhecimento.",
+                            "Anotações manuscritas.",
+                            "Dispositivos físicos.",
+                            "Mídia não educacional."
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "Qual recurso é vital em ambientes educacionais online?",
+                        options: [
+                            "Sobrecarga de informação.",
+                            "Documentos estáticos e imutáveis.",
+                            "Usabilidade e fácil navegação.",
+                            "Comunicação unidirecional.",
+                            "Excluindo vozes de estudantes."
+                        ],
+                        correct: 2
+                    },
+                    {
+                        question: "Na avaliação formativa de projetos de TIC, qual aspecto é crucial?",
+                        options: [
+                            "Número de licenças adquiridas.",
+                            "Duração das aulas.",
+                            "Ferramentas de avaliação uniformes.",
+                            "Engajamento dos alunos e trabalho colaborativo.",
+                            "Proibir certas tecnologias."
+                        ],
+                        correct: 3
+                    },
+                    {
+                        question: "Qual conceito está associado ao 'professor como inovador'?",
+                        options: [
+                            "Projetar atividades que integrem a tecnologia de forma significativa e reflexiva.",
+                            "Utilizando apenas materiais digitais pré-fabricados.",
+                            "Limitar a escolha do aluno.",
+                            "Evitar tecnologia em projetos.",
+                            "Confiar exclusivamente em livros didáticos."
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "O que é um 'ambiente de aprendizagem inclusivo'?",
+                        options: [
+                            "Exclui alunos com necessidades especiais.",
+                            "Depende apenas do ensino presencial.",
+                            "Evita a diversidade.",
+                            "Uma que garanta acesso igualitário às ferramentas digitais e promova a participação.",
+                            "Limita a interação digital."
+                        ],
+                        correct: 3
+                    },
+                    {
+                        question: "Por que a reflexão do professor é importante na adoção de tecnologia?",
+                        options: [
+                            "Evitar toda tecnologia.",
+                            "Incentivar a aprendizagem rígida.",
+                            "Identificar e superar potenciais desafios para a inovação pedagógica.",
+                            "Para manutenção de registros administrativos.",
+                            "Somente para aulas de uniforme."
+                        ],
+                        correct: 2
+                    },
+                    {
+                        question: "O que uma política de inclusão digital deve priorizar?",
+                        options: [
+                            "Equipamento limitador.",
+                            "Restringir o acesso a especialistas.",
+                            "Memorização mecânica de procedimentos.",
+                            "Foco apenas em escolas urbanas.",
+                            "Empoderamento de professores e alunos no uso e criação de recursos digitais."
+                        ],
+                        correct: 4
+                    }
+                ]
+            },
+            practical: {
+                title: "Teste Prático",
+                questions: [
+                    {
+                        question: "O que melhor descreve as 'metodologias ativas' mencionadas no currículo?",
+                        options: [
+                            "Escuta passiva de palestras.",
+                            "Memorizar definições.",
+                            "Somente demonstrações conduzidas por professores.",
+                            "Evitar conteúdo digital.",
+                            "Experiências de aprendizagem centradas no aluno usando tecnologia para engajamento."
+                        ],
+                        correct: 4
+                    },
+                    {
+                        question: "Um professor quer apresentar um novo software educacional aos seus alunos. Qual é o melhor passo inicial?",
+                        options: [
+                            "Demonstrar a ferramenta e promover a exploração ativa.",
+                            "Atribuir leitura de um manual.",
+                            "Excluir os alunos da tomada de decisões.",
+                            "Evite ferramentas digitais em sala de aula.",
+                            "Proibir a colaboração entre pares."
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "Durante um projeto em sala de aula, os alunos utilizam fóruns online. Como isso poderia aprimorar o aprendizado?",
+                        options: [
+                            "Limita a comunicação.",
+                            "Isola os membros do grupo.",
+                            "Concentra-se em tarefas rotineiras.",
+                            "Promove a discussão colaborativa e o pensamento crítico.",
+                            "Aumenta o controle do professor."
+                        ],
+                        correct: 3
+                    },
+                    {
+                        question: "Ao planejar atividades de inclusão digital, o professor deve:",
+                        options: [
+                            "Concentre-se apenas em alunos avançados.",
+                            "Garantir que todos os alunos tenham oportunidades e recursos iguais.",
+                            "Ignorar o contexto da comunidade.",
+                            "Utilizar a tecnologia apenas para prática técnica.",
+                            "Escolha exclusivamente dispositivos caros."
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "O principal objetivo do ensino reflexivo com tecnologia é:",
+                        options: [
+                            "Para manter a tradição.",
+                            "Concentrar-se em atividades repetitivas.",
+                            "Adaptar e integrar melhor os recursos digitais para a aprendizagem.",
+                            "Evitar novas abordagens pedagógicas.",
+                            "Delegar tecnologia somente à equipe de TI."
+                        ],
+                        correct: 2
+                    },
+                    {
+                        question: "Selecionar um software para uso em sala de aula de acordo com o currículo envolve:",
+                        options: [
+                            "Confiar na popularidade.",
+                            "Avaliar sua relevância pedagógica e usabilidade.",
+                            "Foco no entretenimento.",
+                            "Escolher com base apenas no preço.",
+                            "Seleção aleatória."
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "Os professores que enfrentam resistência à tecnologia devem:",
+                        options: [
+                            "Incentivar o diálogo e evidenciar seus benefícios nos processos pedagógicos.",
+                            "Aplicar o uso obrigatório.",
+                            "Ignorar o feedback dos colegas.",
+                            "Restringir o acesso.",
+                            "Evite treinamento."
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "O currículo defende o uso das TIC para:",
+                        options: [
+                            "Entrega passiva de informações.",
+                            "Estimular a aprendizagem crítica, autônoma e participativa.",
+                            "Apenas memorização.",
+                            "Entretenimento.",
+                            "Ensino autoritário."
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "Ao avaliar a inclusão tecnológica de uma escola, qual resultado é mais importante?",
+                        options: [
+                            "Número de dispositivos.",
+                            "Velocidade do Wi-Fi.",
+                            "Uniformidade de ferramentas.",
+                            "Melhor envolvimento dos alunos e resultados de aprendizagem.",
+                            "Reduzir a autonomia dos professores."
+                        ],
+                        correct: 3
+                    },
+                    {
+                        question: "Para metodologias combinadas (híbridas), o princípio é:",
+                        options: [
+                            "Combinar estratégias presenciais e online para o envolvimento dos alunos.",
+                            "Utilizando apenas métodos online.",
+                            "Ignorar atividades presenciais.",
+                            "Evitar trabalho em grupo.",
+                            "Concentração em palestras."
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "O papel do professor em salas de aula integradas à tecnologia é:",
+                        options: [
+                            "Autoridade única.",
+                            "Somente supervisor técnico.",
+                            "Estranho.",
+                            "Observador.",
+                            "Facilitador e co-aprendiz, orientando a exploração do aluno e a construção do conhecimento."
+                        ],
+                        correct: 4
+                    }
+                ]
+            }
+        };
+
+        let currentQuiz = null;
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let quizCompleted = false;
+
         function showContent(id) {
             const content = document.querySelectorAll('.content');
             content.forEach(content => content.classList.remove('active'));
@@ -936,8 +1413,228 @@
         window.onload = function() {
             showContent(1);
         };
+
+        function startQuiz(quizType) {
+            currentQuiz = quizType;
+            currentQuestion = 0;
+            userAnswers = [];
+            quizCompleted = false;
+            
+            const modal = document.getElementById('quiz-modal');
+            const title = document.getElementById('quiz-title');
+            const content = document.getElementById('quiz-content');
+            
+            title.textContent = quizData[quizType].title;
+            modal.classList.add('active');
+            
+            showQuestion();
+        }
+
+        function closeQuiz() {
+            const modal = document.getElementById('quiz-modal');
+            modal.classList.remove('active');
+            
+            // Resetar variáveis
+            currentQuiz = null;
+            currentQuestion = 0;
+            userAnswers = [];
+            quizCompleted = false;
+        }
+
+        function showQuestion() {
+            const quiz = quizData[currentQuiz];
+            const content = document.getElementById('quiz-content');
+            const progressFill = document.getElementById('quiz-progress-fill');
+            const prevBtn = document.getElementById('quiz-prev-btn');
+            const nextBtn = document.getElementById('quiz-next-btn');
+            
+            if (currentQuestion >= quiz.questions.length) {
+                showResults();
+                return;
+            }
+            
+            const question = quiz.questions[currentQuestion];
+            const progress = ((currentQuestion + 1) / quiz.questions.length) * 100;
+            
+            progressFill.style.width = progress + '%';
+            
+            let questionHTML = `
+                <div class="quiz-question">
+                    <h4>${question.question}</h4>
+                    <div class="quiz-options">
+            `;
+            
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswers[currentQuestion] === index ? 'selected' : '';
+                questionHTML += `<div class="quiz-option ${isSelected}" onclick="selectOption(${index})">${option}</div>`;
+            });
+            
+            questionHTML += `
+                    </div>
+                </div>
+            `;
+            
+            content.innerHTML = questionHTML;
+            
+            // Atualizar botões
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.innerHTML = currentQuestion === quiz.questions.length - 1 ? 
+                '<i class="fas fa-check"></i> Finalizar' : 
+                '<i class="fas fa-arrow-right"></i> Próxima';
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach((option, index) => {
+                if (index === optionIndex) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+        }
+
+        function nextQuestion() {
+            if (userAnswers[currentQuestion] === undefined) {
+                // Feedback visual para resposta não selecionada
+                const options = document.querySelectorAll('.quiz-option');
+                options.forEach(option => {
+                    option.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        option.style.animation = '';
+                    }, 500);
+                });
+                return;
+            }
+            
+            currentQuestion++;
+            showQuestion();
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        function showResults() {
+            const quiz = quizData[currentQuiz];
+            const content = document.getElementById('quiz-content');
+            const prevBtn = document.getElementById('quiz-prev-btn');
+            const nextBtn = document.getElementById('quiz-next-btn');
+            
+            let correctCount = 0;
+            
+            // Calcular respostas corretas
+            quiz.questions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    correctCount++;
+                }
+            });
+            
+            const incorrectCount = quiz.questions.length - correctCount;
+            const percentage = Math.round((correctCount / quiz.questions.length) * 100);
+            
+            let resultsHTML = `
+                <div class="quiz-results">
+                    <h3>Resultados do ${quiz.title}</h3>
+                    <div class="quiz-score">
+                        <div class="score-item correct">
+                            <div class="number">${correctCount}</div>
+                            <div class="label">Acertos</div>
+                        </div>
+                        <div class="score-item incorrect">
+                            <div class="number">${incorrectCount}</div>
+                            <div class="label">Erros</div>
+                        </div>
+                    </div>
+                    <div class="quiz-percentage">${percentage}%</div>
+                    <p>Desempenho: ${percentage >= 70 ? 'Excelente!' : percentage >= 50 ? 'Bom!' : 'Pode melhorar!'}</p>
+                </div>
+                <div class="quiz-questions-review">
+                    <h4>Revisão das Questões</h4>
+            `;
+            
+            // Mostrar revisão das questões
+            quiz.questions.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === question.correct;
+                
+                resultsHTML += `
+                    <div class="review-question">
+                        <h4>Questão ${index + 1}</h4>
+                        <p><strong>${question.question}</strong></p>
+                        <div class="review-options">
+                            <div class="review-option user-answer">
+                                <strong>Sua resposta:</strong> ${question.options[userAnswer]}
+                            </div>
+                            <div class="review-option correct-answer">
+                                <strong>Resposta correta:</strong> ${question.options[question.correct]}
+                            </div>
+                        </div>
+                        <div class="review-status ${isCorrect ? 'correct' : 'incorrect'}">
+                            <i class="fas fa-${isCorrect ? 'check-circle' : 'times-circle'}"></i>
+                            ${isCorrect ? 'Resposta correta' : 'Resposta incorreta'}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            resultsHTML += `</div>`;
+            
+            content.innerHTML = resultsHTML;
+            
+            // Atualizar botões
+            prevBtn.style.display = 'none';
+            nextBtn.innerHTML = '<i class="fas fa-redo"></i> Refazer Quiz';
+            nextBtn.onclick = restartQuiz;
+            
+            // Adicionar botão para fechar
+            const footer = document.querySelector('.quiz-modal-footer');
+            if (!document.getElementById('close-quiz-btn')) {
+                const closeBtn = document.createElement('button');
+                closeBtn.id = 'close-quiz-btn';
+                closeBtn.className = 'btn btn-secondary';
+                closeBtn.innerHTML = '<i class="fas fa-times"></i> Fechar';
+                closeBtn.onclick = closeQuiz;
+                footer.appendChild(closeBtn);
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = [];
+            quizCompleted = false;
+            
+            // Resetar botões
+            const prevBtn = document.getElementById('quiz-prev-btn');
+            const nextBtn = document.getElementById('quiz-next-btn');
+            const closeBtn = document.getElementById('close-quiz-btn');
+            
+            prevBtn.style.display = 'block';
+            nextBtn.innerHTML = '<i class="fas fa-arrow-right"></i> Próxima';
+            nextBtn.onclick = nextQuestion;
+            
+            if (closeBtn) {
+                closeBtn.remove();
+            }
+            
+            showQuestion();
+        }
+
+        // Adicionar animação shake para feedback visual
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
-
-
